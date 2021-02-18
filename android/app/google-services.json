@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "793809526451",
+    "project_id": "adote-me-2ab97",
+    "storage_bucket": "adote-me-2ab97.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793809526451:android:5fdca3e97c8f8cb6555ac6",
+        "android_client_info": {
+          "package_name": "adoteme.adote_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793809526451-2b5oaj7ngva2e9nsne14bgg17oh4lmb0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqbPDKTSFWehj2ze191nN7lr4ZMu5vYBU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793809526451-2b5oaj7ngva2e9nsne14bgg17oh4lmb0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
