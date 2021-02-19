@@ -1,9 +1,15 @@
 import 'package:adote_me/Animacoes/FadeAnimation.dart';
+import 'package:adote_me/Controller/C_Login/controller_login.dart';
+import 'package:adote_me/View/Alert/RecuperarSenhaAlert.dart';
+import 'package:adote_me/View/Home/configuration.dart';
 import 'package:adote_me/View/Widgets/CustomAnimatedButton.dart';
 import 'package:adote_me/View/Widgets/InputCustomizado.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class SingIn extends StatelessWidget {
+  final controllerLogin = ControllerLogin();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -50,27 +56,57 @@ class SingIn extends StatelessWidget {
                       icon: Icons.mail,
                       labelText: "E-mail",
                       keyboardType: TextInputType.text,
+                      onChanged: controllerLogin.loginStore.setEmail,
                     )
                   ),
                   SizedBox(height: 20),
 
                   FadeAnimation(0.4,
-                      InputCustomizado(
-                        icon: Icons.lock,
-                        labelText: "Senha",
-                        iconSuffix: Icons.visibility,
-                        obscure: true,
-                        keyboardType: TextInputType.visiblePassword,
+                      Observer(
+                        builder: (_) => InputCustomizado(
+                          icon: Icons.lock,
+                          labelText: "Senha",
+                          iconSuffix: controllerLogin.loginStore.visualizar
+                              ?  Icons.visibility_off
+                              :  Icons.visibility,
+                          onTapGesture: controllerLogin.loginStore.boolVisualizar,
+                          obscure: controllerLogin.loginStore.visualizar,
+                          onChanged: controllerLogin.loginStore.setSenha,
+                          keyboardType: TextInputType.visiblePassword,
+                        ),
                       )
                   ),
                   SizedBox(height: 30),
 
                   FadeAnimation(
                     0.6, CustomAnimatedButton(
-                      onTap: () {},
+                      onTap: () {
+                        controllerLogin.loginStore.logarUsuario(context);
+                        if(controllerLogin.loginStore.resultado == true){
+                          Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                        }
+                      },
                       widhtMultiply: 1,
                       height: 60,
                       text: "Entrar",
+                    ),
+                  ),
+
+                  FadeAnimation(0.8,
+                    Container(
+                      height: 40,
+                      padding: EdgeInsets.only(right: 8),
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                        child: Text(
+                          "Recuperar Senha",
+                          style: TextStyle(
+                              color: primaryGreen),
+                        ),
+                        onTap: (){
+                          recuperarSenha(context);
+                        },
+                      ),
                     ),
                   ),
                   // SizedBox(height: 20),

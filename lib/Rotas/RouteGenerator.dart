@@ -17,6 +17,9 @@ class RouteGenerator {
       case "/":
         // return MaterialPageRoute(builder: (_)=> TelaLogin()); // (_) == context
 
+      case "/home":
+        return MaterialPageRoute(builder: (_)=> HomePage());
+
       case "/login":
         return MaterialPageRoute(builder: (_)=> Login());
 
@@ -25,9 +28,6 @@ class RouteGenerator {
 
       case "/singUp":
         return MaterialPageRoute(builder: (_)=> SingUp());
-
-      case "/home":
-      return MaterialPageRoute(builder: (_)=> HomePage());
 
 
       default:

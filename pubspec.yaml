@@ -34,6 +34,12 @@ dependencies:
     #Biblioteca para animação
   simple_animations: ^2.2.2
 
+    #Biblioteca para alerta em widget
+  rflutter_alert: ^1.0.3
+
+    #Biblioteca para validar email
+  email_validator: ^1.0.5
+
     #Bibliotecas para Firebase
   firebase_core: ^0.4.4+2    #Recursos básicos
   firebase_auth: ^0.15.5+3   #autenticacao

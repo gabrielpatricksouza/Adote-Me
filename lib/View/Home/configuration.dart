@@ -20,7 +20,7 @@ List<Map> drawerItems=[
   {
     'icon': Icons.favorite,
     'title' : 'Favoritos',
-    'route':  "/login"
+    'route':  ""
   },
   {
     'icon': FontAwesomeIcons.solidHandshake,

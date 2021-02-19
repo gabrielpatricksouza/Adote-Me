@@ -1,4 +1,4 @@
-import 'package:adote_me/Store/home_store.dart';
+import 'package:adote_me/Controller/C_Home/controller_home.dart';
 import 'package:adote_me/View/Home/screenDetails.dart';
 import 'package:adote_me/View/Utilits/CustomCard.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,21 +11,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final homeStore = HomeStore();
+  final controllerHome = ControllerHome();
 
   @override
   Widget build(BuildContext context) {
+
     return Observer(builder: (context) {
       return AnimatedContainer(
-        transform:
-            Matrix4.translationValues(homeStore.xOffset, homeStore.yOffset, 0)
-              ..scale(homeStore.scaleFactor)
-              ..rotateY(homeStore.isDrawerOpen ? -0.5 : 0),
+        transform: Matrix4.translationValues(
+            controllerHome.homeStore.xOffset,
+            controllerHome.homeStore.yOffset, 0)
+              ..scale(controllerHome.homeStore.scaleFactor)
+              ..rotateY(controllerHome.homeStore.isDrawerOpen ? -0.5 : 0),
         duration: Duration(milliseconds: 250),
         decoration: BoxDecoration(
             color: Color(0xffd7ecec),
             borderRadius:
-                BorderRadius.circular(homeStore.isDrawerOpen ? 40 : 0.0)),
+                BorderRadius.circular(
+                    controllerHome.homeStore.isDrawerOpen
+                        ? 40 : 0.0
+                )
+        ),
         child: Column(
           children: [
             SizedBox(height: 35),
@@ -35,13 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  homeStore.isDrawerOpen
+                  controllerHome.homeStore.isDrawerOpen
                       ? IconButton(
                           icon: Icon(Icons.arrow_back_ios),
-                          onPressed: homeStore.menuOff,
+                          onPressed: controllerHome.homeStore.menuOff,
                         )
                       : IconButton(
-                          icon: Icon(Icons.menu), onPressed: homeStore.menuOn),
+                          icon: Icon(Icons.menu),
+                          onPressed: controllerHome.homeStore.menuOn
+                  ),
                   Image.asset("assets/images/logoSmall.png", width: 100,),
 
                   Icon(Icons.search)

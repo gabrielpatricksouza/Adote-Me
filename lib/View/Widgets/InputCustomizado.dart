@@ -21,6 +21,7 @@ class InputCustomizado extends StatelessWidget {
   final Function(String) validator;
   final Function(String) onSaved;
   final Function(String) onChanged;
+  final Function() onTapGesture;
 
   InputCustomizado({
     this.controller,
@@ -40,6 +41,7 @@ class InputCustomizado extends StatelessWidget {
     this.labelText,
     this.icon,
     this.iconSuffix,
+    this.onTapGesture,
     this.keyboardType = TextInputType.text,
   });
 
@@ -55,10 +57,16 @@ class InputCustomizado extends StatelessWidget {
       onChanged: this.onChanged,
       keyboardType: this.keyboardType,
       style: TextStyle(fontSize: 20),
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.start,
       decoration: InputDecoration(
-          prefixIcon: Icon(this.icon),
-          suffixIcon: Icon(this.iconSuffix),
+          prefixIcon: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Icon(this.icon)
+          ),
+          suffixIcon: GestureDetector(
+            onTap: onTapGesture,
+            child: Icon(this.iconSuffix),
+          ),
           contentPadding: EdgeInsets.fromLTRB(32, 18, 32, 18),
           labelStyle: this.labelStyle,
           labelText: this.labelText,
