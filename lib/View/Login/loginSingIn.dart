@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class SingIn extends StatelessWidget {
-  final controllerLogin = ControllerLogin();
+  final _controllerLogin = ControllerLogin();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class SingIn extends StatelessWidget {
                       icon: Icons.mail,
                       labelText: "E-mail",
                       keyboardType: TextInputType.text,
-                      onChanged: controllerLogin.loginStore.setEmail,
+                      onChanged: _controllerLogin.loginStore.setEmail,
                     )
                   ),
                   SizedBox(height: 20),
@@ -66,12 +66,12 @@ class SingIn extends StatelessWidget {
                         builder: (_) => InputCustomizado(
                           icon: Icons.lock,
                           labelText: "Senha",
-                          iconSuffix: controllerLogin.loginStore.visualizar
+                          iconSuffix: _controllerLogin.loginStore.visualizar
                               ?  Icons.visibility_off
                               :  Icons.visibility,
-                          onTapGesture: controllerLogin.loginStore.boolVisualizar,
-                          obscure: controllerLogin.loginStore.visualizar,
-                          onChanged: controllerLogin.loginStore.setSenha,
+                          onTapGesture: _controllerLogin.loginStore.boolVisualizar,
+                          obscure: _controllerLogin.loginStore.visualizar,
+                          onChanged: _controllerLogin.loginStore.setSenha,
                           keyboardType: TextInputType.visiblePassword,
                         ),
                       )
@@ -81,8 +81,8 @@ class SingIn extends StatelessWidget {
                   FadeAnimation(
                     0.6, CustomAnimatedButton(
                       onTap: () {
-                        controllerLogin.loginStore.logarUsuario(context);
-                        if(controllerLogin.loginStore.resultado == true){
+                        _controllerLogin.loginStore.logarUsuario(context);
+                        if(_controllerLogin.loginStore.resultado == true){
                           Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
                         }
                       },

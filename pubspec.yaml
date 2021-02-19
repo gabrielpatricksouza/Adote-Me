@@ -38,13 +38,13 @@ dependencies:
   rflutter_alert: ^1.0.3
 
     #Biblioteca para validar email
-  email_validator: ^1.0.5
+  email_validator: ^1.0.6
 
     #Bibliotecas para Firebase
-  firebase_core: ^0.4.4+2    #Recursos básicos
-  firebase_auth: ^0.15.5+3   #autenticacao
-  firebase_storage: ^3.1.5   #armazenamento arquivos
-  cloud_firestore: ^0.13.4+1 #banco de dados
+  firebase_core: ^0.7.0    #Recursos básicos
+  firebase_auth: ^0.20.1   #autenticacao
+  firebase_storage: ^7.0.0   #armazenamento arquivos
+  cloud_firestore: ^0.16.0+1 #banco de dados
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

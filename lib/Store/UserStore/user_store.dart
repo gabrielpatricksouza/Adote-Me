@@ -11,6 +11,13 @@ abstract class _UserStore with Store{
   bool loggedUser;
 
   @action
-  Future<bool> checkLoggedUser() async =>
-      loggedUser = await acesso.currentUser();
+  bool checkLoggedUser() =>
+      loggedUser = acesso.checkCurrentUser();
+
+  @observable
+  bool logOut;
+
+  @action
+  Future<bool> logOutUser() async =>
+      logOut = acesso.deslogarUsuario();
 }

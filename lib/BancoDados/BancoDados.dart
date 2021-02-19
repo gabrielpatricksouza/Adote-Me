@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class ConexaoBD{
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final Firestore db = Firestore.instance;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
   CollectionReference ref;
 
 
@@ -20,8 +20,9 @@ class ConexaoBD{
         usuario.idUsuario = firebaseUser.user.uid;
         //Salvar dados do usuário
         db.collection("usuarios")
-            .document(usuario.idUsuario)
-            .setData(usuario.toMap());
+            .doc(usuario.idUsuario)
+            .set(usuario.toMap());
+        print("aq");
 
       });
       return true;
@@ -86,9 +87,9 @@ class ConexaoBD{
   }
 //******************************************************************************
 
-  Future deslogarUsuario() async {
+  bool deslogarUsuario(){
      _auth.signOut();
-     bool verificarUsuarioDeslogado = await currentUser();
+     bool verificarUsuarioDeslogado =  checkCurrentUser();
      if(verificarUsuarioDeslogado){
        return false;
      }
@@ -99,7 +100,7 @@ class ConexaoBD{
 //******************************************************************************
 
   Future alterarEmail(Usuario usuario) async {
-    final user = await FirebaseAuth.instance.currentUser();
+    final user = FirebaseAuth.instance.currentUser;
 
     bool updateEmail = await user.updateEmail(usuario.email)
           .then((firebase){
@@ -113,13 +114,13 @@ class ConexaoBD{
 //******************************************************************************
 
   Future exluirUsuario() async {
-    Firestore userDB = Firestore.instance;
-    final user          = await FirebaseAuth.instance.currentUser();
+    FirebaseFirestore userDB = FirebaseFirestore.instance;
+    final user = FirebaseAuth.instance.currentUser;
     bool deleteDB;
     bool exclusao;
 
     try{
-      userDB.collection("usuarios").document(user.uid).delete();
+      userDB.collection("usuarios").doc(user.uid).delete();
       deleteDB = true;
     }
     catch(error){
@@ -150,27 +151,25 @@ class ConexaoBD{
 
 //******************************************************************************
 
-  Future currentUser() async {
-    FirebaseUser user = await _auth.currentUser();
+  bool checkCurrentUser(){
+    User user =  _auth.currentUser;
     return user != null ? true : false;
   }
 
 //******************************************************************************
   Future recuperarDadosUsuario() async {
-    FirebaseUser user = await _auth.currentUser();
+    User user =  _auth.currentUser;
     Usuario usuario = Usuario();
 
     DocumentSnapshot snapshot      = await db.collection("usuarios")
-                                          .document(user.uid)
+                                          .doc(user.uid)
                                           .get();
 
     DocumentSnapshot snapshotAdmin = await db.collection("admins")
-                                          .document(user.uid)
+                                          .doc(user.uid)
                                           .get();
 
-    var snapshotNoivos = await db.collection("noivos").getDocuments();
-
-    Map<String, dynamic> dados = snapshot.data;
+    Map<String, dynamic> dados = snapshot.data();
     usuario.nome       = dados['nome'];
     usuario.email      = dados['email'];
     usuario.idUsuario  = dados['id'];
@@ -180,11 +179,7 @@ class ConexaoBD{
     }
     else{
       usuario.admin = false;
-      for(var dad in snapshotNoivos.documents){
-        if(dad.documentID.trim() == user.uid){
-          usuario.noivos = true;
-        }
-      }
+
     }
 
     return usuario;

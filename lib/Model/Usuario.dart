@@ -11,9 +11,9 @@ class Usuario {
   bool noivos   = false;
 
   Usuario(){
-    Firestore db = Firestore.instance;
+    FirebaseFirestore db = FirebaseFirestore.instance;
     CollectionReference users = db.collection("usuarios");
-    this.idUsuario = users.document().documentID;
+    this.idUsuario = users.doc().id;
   }
 
 

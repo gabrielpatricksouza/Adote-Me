@@ -24,18 +24,46 @@ mixin _$UserStore on _UserStore, Store {
     });
   }
 
-  final _$checkLoggedUserAsyncAction =
-      AsyncAction('_UserStore.checkLoggedUser');
+  final _$logOutAtom = Atom(name: '_UserStore.logOut');
 
   @override
-  Future<bool> checkLoggedUser() {
-    return _$checkLoggedUserAsyncAction.run(() => super.checkLoggedUser());
+  bool get logOut {
+    _$logOutAtom.reportRead();
+    return super.logOut;
+  }
+
+  @override
+  set logOut(bool value) {
+    _$logOutAtom.reportWrite(value, super.logOut, () {
+      super.logOut = value;
+    });
+  }
+
+  final _$logOutUserAsyncAction = AsyncAction('_UserStore.logOutUser');
+
+  @override
+  Future<bool> logOutUser() {
+    return _$logOutUserAsyncAction.run(() => super.logOutUser());
+  }
+
+  final _$_UserStoreActionController = ActionController(name: '_UserStore');
+
+  @override
+  bool checkLoggedUser() {
+    final _$actionInfo = _$_UserStoreActionController.startAction(
+        name: '_UserStore.checkLoggedUser');
+    try {
+      return super.checkLoggedUser();
+    } finally {
+      _$_UserStoreActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
   String toString() {
     return '''
-loggedUser: ${loggedUser}
+loggedUser: ${loggedUser},
+logOut: ${logOut}
     ''';
   }
 }

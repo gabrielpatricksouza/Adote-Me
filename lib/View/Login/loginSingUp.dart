@@ -1,9 +1,13 @@
 import 'package:adote_me/Animacoes/FadeAnimation.dart';
+import 'package:adote_me/Controller/C_Login/controller_login.dart';
 import 'package:adote_me/View/Widgets/CustomAnimatedButton.dart';
 import 'package:adote_me/View/Widgets/InputCustomizado.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class SingUp extends StatelessWidget {
+  final _controllerLogin = ControllerLogin();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -29,7 +33,6 @@ class SingUp extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-
               Positioned(
                 top: 20,
                 left: 0,
@@ -40,63 +43,90 @@ class SingUp extends StatelessWidget {
                 ),
               ),
 
-              Positioned(
+              _controllerLogin.registerStore.carregando
+                  ? Center(
+                    child: CircularProgressIndicator(
+                      valueColor: new AlwaysStoppedAnimation<Color>(Color(0xff416d6d)),
+                      backgroundColor: Color(0xff5C9999),
+                    ),
+                  )
+                  : Positioned(
                 bottom: 30,
                 left: 0,
                 right: 0,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Column(
-                    children: [
-                      FadeAnimation(0.2,
-                          InputCustomizado(
-                            icon: Icons.mail,
-                            labelText: "Nome",
-                            keyboardType: TextInputType.text,
-                          )
-                      ),
-                      SizedBox(height: 20),
+                  child: Observer(
+                    builder: (_)=> Column(
+                      children: [
+                        FadeAnimation(0.2,
+                            InputCustomizado(
+                              icon: Icons.mail,
+                              labelText: "Nome",
+                              keyboardType: TextInputType.text,
+                              onChanged: _controllerLogin.registerStore.setNome,
+                            )
+                        ),
+                        SizedBox(height: 20),
 
-                      FadeAnimation(0.4,
-                          InputCustomizado(
-                            icon: Icons.mail,
-                            labelText: "E-mail",
-                            keyboardType: TextInputType.text,
-                          )
-                      ),
-                      SizedBox(height: 20),
+                        FadeAnimation(0.4,
+                            InputCustomizado(
+                              icon: Icons.mail,
+                              labelText: "E-mail",
+                              hintText: "Insira e-mail válido",
+                              keyboardType: TextInputType.emailAddress,
+                              onChanged: _controllerLogin.registerStore.setEmail,
+                            )
+                        ),
+                        SizedBox(height: 20),
 
-                      FadeAnimation(0.6,
-                          InputCustomizado(
-                            icon: Icons.lock,
-                            labelText: "Senha",
-                            iconSuffix: Icons.visibility,
-                            obscure: true,
-                            keyboardType: TextInputType.visiblePassword,
-                          )
-                      ),
-                      SizedBox(height: 20),
+                        FadeAnimation(0.6,
+                            InputCustomizado(
+                              icon: Icons.lock,
+                              labelText: "Senha",
+                              iconSuffix: _controllerLogin.registerStore.visualizar
+                                  ?  Icons.visibility_off
+                                  :  Icons.visibility,
+                              onTapGesture: _controllerLogin.registerStore.boolVisualizar,
+                              obscure: _controllerLogin.registerStore.visualizar,
+                              onChanged: _controllerLogin.registerStore.setsenha1,
+                              keyboardType: TextInputType.visiblePassword,
+                            )
+                        ),
+                        SizedBox(height: 20),
 
-                      FadeAnimation(0.8,
-                          InputCustomizado(
-                            icon: Icons.lock,
-                            labelText: "Confirmar Senha",
-                            iconSuffix: Icons.visibility,
-                            obscure: true,
-                            keyboardType: TextInputType.visiblePassword,
-                          )
-                      ),
-                      SizedBox(height: 30),
+                        FadeAnimation(0.8,
+                            InputCustomizado(
+                              icon: Icons.lock,
+                              labelText: "Confirmar Senha",
+                              iconSuffix: _controllerLogin.registerStore.visualizar
+                                  ?  Icons.visibility_off
+                                  :  Icons.visibility,
+                              onTapGesture: _controllerLogin.registerStore.boolVisualizar2,
+                              obscure: _controllerLogin.registerStore.visualizar,
+                              onChanged: _controllerLogin.registerStore.setsenha2,
+                              keyboardType: TextInputType.visiblePassword,
+                            )
+                        ),
 
-                      FadeAnimation(
-                        1, CustomAnimatedButton(
-                        onTap: () {},
-                        widhtMultiply: 1,
-                        height: 60,
-                        text: "Cadastrar",
-                      ),
-                      ),
-                    ],
+                        _controllerLogin.registerStore.finalizar == false
+                            ? Container()
+                            : Padding(
+                                padding: const EdgeInsets.only(top: 30.0),
+                                child: CustomAnimatedButton(
+                                onTap: () {
+                                  _controllerLogin.registerStore.validandoCampos(context);
+                                  if(_controllerLogin.registerStore.cadastrado){
+                                    Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                                  } else FocusScope.of(context).unfocus();
+                                },
+                                widhtMultiply: 1,
+                                height: 60,
+                                text: "Cadastrar",
+                            ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )

@@ -1,13 +1,14 @@
 import 'package:adote_me/Controller/C_Home/controller_home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'configuration.dart';
 
 class DrawerScreen extends StatelessWidget {
-  final controllerHome = ControllerHome();
+  final _controllerHome = ControllerHome();
 
   @override
   Widget build(BuildContext context) {
-    controllerHome.userStore.checkLoggedUser();
+    _controllerHome.userStore.checkLoggedUser();
 
     return Container(
       color: primaryGreen,
@@ -38,7 +39,7 @@ class DrawerScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: GestureDetector(
                         onTap: () {
-                          controllerHome.userStore.loggedUser
+                          _controllerHome.userStore.loggedUser
                               ? Navigator.pushNamed(context, element['route'])
                               : Navigator.pushNamed(context, "/login");
                         },
@@ -62,36 +63,49 @@ class DrawerScreen extends StatelessWidget {
                     ))
                 .toList(),
           ),
-          Row(
-            children: [
-              Icon(
-                Icons.settings,
-                color: Colors.white,
-              ),
-              SizedBox(width: 10),
-
-              Text(
-                'Configurações',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(width: 10),
-
-              Container(
-                width: 2,
-                height: 20,
-                color: Colors.white,
-              ),
-              SizedBox(width: 10),
-
-              Text(
-                'Sair',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold
+          Observer(
+            builder: (_) => Row(
+              children: [
+                Icon(
+                  Icons.settings,
+                  color: Colors.white,
                 ),
-              )
-            ],
+                SizedBox(width: 10),
+
+                Text(
+                  'Configurações',
+                  style:
+                      TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(width: 10),
+
+                if(_controllerHome.userStore.loggedUser)
+                    ...[
+                      Container(
+                      width: 2,
+                      height: 20,
+                      color: Colors.white,
+                    ),
+                      SizedBox(width: 10),
+
+                      GestureDetector(
+                        onTap: (){
+                          _controllerHome.userStore.logOutUser();
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "/home", (route) => false);
+                        },
+                        child: Text(
+                          'Sair',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      )
+                    ]
+
+              ],
+            ),
           )
         ],
       ),
