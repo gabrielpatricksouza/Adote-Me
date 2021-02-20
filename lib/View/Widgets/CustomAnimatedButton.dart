@@ -75,12 +75,12 @@ class _CustomAnimatedButtonState extends State<CustomAnimatedButton>   with Sing
   Widget get _animatedButtonUI => Material(
     elevation: 10,
     shadowColor: Colors.grey[600],
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
     child: Container(
       height: widget.height,
       width: MediaQuery.of(context).size.width * widget.widhtMultiply,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(25),
         color: widget.color == null
             ? primaryGreen
             : widget.color

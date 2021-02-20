@@ -28,13 +28,7 @@ class SingIn extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Image.asset(
-                "assets/images/logo.png",
-                fit: BoxFit.cover,
-              ),
-            ),
+
 
             Positioned(
                 top: 20,
@@ -47,70 +41,84 @@ class SingIn extends StatelessWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 100.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FadeAnimation(0.2,
-                    InputCustomizado(
-                      icon: Icons.mail,
-                      labelText: "E-mail",
-                      keyboardType: TextInputType.text,
-                      onChanged: _controllerLogin.loginStore.setEmail,
-                    )
-                  ),
-                  SizedBox(height: 20),
-
-                  FadeAnimation(0.4,
-                      Observer(
-                        builder: (_) => InputCustomizado(
-                          icon: Icons.lock,
-                          labelText: "Senha",
-                          iconSuffix: _controllerLogin.loginStore.visualizar
-                              ?  Icons.visibility_off
-                              :  Icons.visibility,
-                          onTapGesture: _controllerLogin.loginStore.boolVisualizar,
-                          obscure: _controllerLogin.loginStore.visualizar,
-                          onChanged: _controllerLogin.loginStore.setSenha,
-                          keyboardType: TextInputType.visiblePassword,
-                        ),
-                      )
-                  ),
-                  SizedBox(height: 30),
-
-                  FadeAnimation(
-                    0.6, CustomAnimatedButton(
-                      onTap: () {
-                        _controllerLogin.loginStore.logarUsuario(context);
-                        if(_controllerLogin.loginStore.resultado == true){
-                          Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
-                        }
-                      },
-                      widhtMultiply: 1,
-                      height: 60,
-                      text: "Entrar",
-                    ),
-                  ),
-
-                  FadeAnimation(0.8,
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.only(right: 8),
-                      alignment: Alignment.center,
-                      child: GestureDetector(
-                        child: Text(
-                          "Recuperar Senha",
-                          style: TextStyle(
-                              color: primaryGreen),
-                        ),
-                        onTap: (){
-                          recuperarSenha(context);
-                        },
+              padding: const EdgeInsets.symmetric(horizontal: 38.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Image.asset(
+                        "assets/images/logo.png",
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                  // SizedBox(height: 20),
-                ],
+
+                    FadeAnimation(0.2,
+                      InputCustomizado(
+                        icon: Icons.mail,
+                        labelText: "E-mail",
+                        keyboardType: TextInputType.text,
+                        controller: _controllerLogin.emailController,
+                        onChanged: _controllerLogin.loginStore.setEmail,
+                      )
+                    ),
+                    SizedBox(height: 20),
+
+                    FadeAnimation(0.4,
+                        Observer(
+                          builder: (_) => InputCustomizado(
+                            icon: Icons.lock,
+                            labelText: "Senha",
+                            suffixIcon: GestureDetector(
+                              onTap: _controllerLogin.loginStore.boolVisualizar,
+                              child:  Icon(_controllerLogin.loginStore.visualizar
+                                  ?  Icons.visibility_off
+                                  :  Icons.visibility),
+                            ),
+                            controller: _controllerLogin.senhaController,
+                            obscure: _controllerLogin.loginStore.visualizar,
+                            onChanged: _controllerLogin.loginStore.setSenha,
+                            keyboardType: TextInputType.visiblePassword,
+                          ),
+                        )
+                    ),
+                    SizedBox(height: 30),
+
+                    FadeAnimation(
+                      0.6, CustomAnimatedButton(
+                        onTap: () {
+                          _controllerLogin.loginStore.logarUsuario(context);
+                          if(_controllerLogin.loginStore.resultado == true){
+                            Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                          }
+                        },
+                        widhtMultiply: 1,
+                        height: 60,
+                        text: "Entrar",
+                      ),
+                    ),
+
+                    FadeAnimation(0.8,
+                      Container(
+                        height: 40,
+                        padding: EdgeInsets.only(right: 8),
+                        alignment: Alignment.center,
+                        child: GestureDetector(
+                          child: Text(
+                            "Recuperar Senha",
+                            style: TextStyle(
+                                color: primaryGreen),
+                          ),
+                          onTap: (){
+                            recuperarSenha(context);
+                          },
+                        ),
+                      ),
+                    ),
+                    // SizedBox(height: 20),
+                  ],
+                ),
               ),
             )
           ],

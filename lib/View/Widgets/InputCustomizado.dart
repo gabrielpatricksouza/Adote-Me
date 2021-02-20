@@ -16,12 +16,11 @@ class InputCustomizado extends StatelessWidget {
   final bool obscure;
   final bool autofocus;
   final IconData icon;
-  final IconData iconSuffix;
+  final GestureDetector suffixIcon;
   final List<TextInputFormatter> inputFormatters;
   final Function(String) validator;
   final Function(String) onSaved;
   final Function(String) onChanged;
-  final Function() onTapGesture;
 
   InputCustomizado({
     this.controller,
@@ -40,34 +39,34 @@ class InputCustomizado extends StatelessWidget {
     this.suffix,
     this.labelText,
     this.icon,
-    this.iconSuffix,
-    this.onTapGesture,
+    this.suffixIcon,
     this.keyboardType = TextInputType.text,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: this.controller,
-      obscureText: this.obscure,
-      autofocus: this.autofocus,
-      inputFormatters: this.inputFormatters,
-      validator: this.validator,
-      onSaved: this.onSaved,
-      onChanged: this.onChanged,
-      keyboardType: this.keyboardType,
+      controller: controller,
+      obscureText: obscure,
+      autofocus: autofocus,
+      inputFormatters:inputFormatters,
+      validator: validator,
+      onSaved: onSaved,
+      onChanged: onChanged,
+      keyboardType: keyboardType,
       style: TextStyle(fontSize: 20),
       textAlign: TextAlign.start,
       decoration: InputDecoration(
+
           prefixIcon: Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Icon(this.icon)
           ),
-          suffixIcon: GestureDetector(
-            onTap: onTapGesture,
-            child: Icon(this.iconSuffix),
-          ),
-          contentPadding: EdgeInsets.fromLTRB(32, 18, 32, 18),
+          suffixIcon: suffixIcon,
+          contentPadding: suffixIcon == null
+              ? EdgeInsets.fromLTRB(24, 18, 24, 18)
+              : EdgeInsets.fromLTRB(0, 18, 0, 18),
+
           labelStyle: this.labelStyle,
           labelText: this.labelText,
           hintStyle: this.hintStyle,

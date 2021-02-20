@@ -9,14 +9,6 @@ part of 'register_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$RegisterStore on _RegisterStore, Store {
-  Computed<bool> _$finalizarComputed;
-
-  @override
-  bool get finalizar =>
-      (_$finalizarComputed ??= Computed<bool>(() => super.finalizar,
-              name: '_RegisterStore.finalizar'))
-          .value;
-
   final _$nomeAtom = Atom(name: '_RegisterStore.nome');
 
   @override
@@ -137,6 +129,21 @@ mixin _$RegisterStore on _RegisterStore, Store {
     });
   }
 
+  final _$nextAtom = Atom(name: '_RegisterStore.next');
+
+  @override
+  bool get next {
+    _$nextAtom.reportRead();
+    return super.next;
+  }
+
+  @override
+  set next(bool value) {
+    _$nextAtom.reportWrite(value, super.next, () {
+      super.next = value;
+    });
+  }
+
   final _$_cadastrarUsuarioAsyncAction =
       AsyncAction('_RegisterStore._cadastrarUsuario');
 
@@ -216,11 +223,22 @@ mixin _$RegisterStore on _RegisterStore, Store {
   }
 
   @override
-  void validandoCampos(dynamic context) {
+  void validandoNomeEmail(dynamic context) {
     final _$actionInfo = _$_RegisterStoreActionController.startAction(
-        name: '_RegisterStore.validandoCampos');
+        name: '_RegisterStore.validandoNomeEmail');
     try {
-      return super.validandoCampos(context);
+      return super.validandoNomeEmail(context);
+    } finally {
+      _$_RegisterStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void validandoSenhas(dynamic context) {
+    final _$actionInfo = _$_RegisterStoreActionController.startAction(
+        name: '_RegisterStore.validandoSenhas');
+    try {
+      return super.validandoSenhas(context);
     } finally {
       _$_RegisterStoreActionController.endAction(_$actionInfo);
     }
@@ -237,7 +255,7 @@ visualizar: ${visualizar},
 visualizar2: ${visualizar2},
 carregando: ${carregando},
 cadastrado: ${cadastrado},
-finalizar: ${finalizar}
+next: ${next}
     ''';
   }
 }

@@ -74,16 +74,12 @@ abstract class _RegisterStore with Store{
     carregando = false;
   }
 
-  @computed
-  bool get finalizar =>
-      nome.isNotEmpty &&
-          senha1.isNotEmpty  &&
-          senha2.isNotEmpty  &&
-          email.isNotEmpty;
+  @observable
+  bool next = false;
 
 
   @action
-  void validandoCampos(context){
+  void validandoNomeEmail(context){
     String _respostaBO;
 
     var _validarCadastro = ValidarCadastro(
@@ -92,8 +88,31 @@ abstract class _RegisterStore with Store{
       senha2.trim(),
       email.trim()
     );
-    _respostaBO = _validarCadastro.validandoCampos();
+    _respostaBO = _validarCadastro.validandoNomeEmail();
 
+
+    if(_respostaBO  != "Valido"){
+      customAlert(
+          context,
+          AlertType.info,
+          "ATENÇÃO",
+          _respostaBO
+      );
+    }
+    else next = true;
+  }
+
+  @action
+  void validandoSenhas(context){
+    String _respostaBO;
+
+    var _validarCadastro = ValidarCadastro(
+        nome.trim(),
+        senha1.trim(),
+        senha2.trim(),
+        email.trim()
+    );
+    _respostaBO = _validarCadastro.validandoSenhas();
 
     if(_respostaBO  != "Valido"){
       customAlert(
