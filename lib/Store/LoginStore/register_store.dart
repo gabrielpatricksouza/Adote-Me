@@ -1,7 +1,8 @@
 import 'package:adote_me/BO/BO_Cadastro.dart';
-import 'package:adote_me/BancoDados/BancoDados.dart';
+import 'package:adote_me/BancoDados/Dao_User.dart';
 import 'package:adote_me/Model/Usuario.dart';
 import 'package:adote_me/View/Alert/SimpleAlert.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 part 'register_store.g.dart';
@@ -10,6 +11,11 @@ class RegisterStore = _RegisterStore with _$RegisterStore;
 
 abstract class _RegisterStore with Store{
   ConexaoBD _acessoBD = ConexaoBD();
+
+  final nomeController   = TextEditingController();
+  final emailController  = TextEditingController();
+  final senhaController  = TextEditingController();
+  final senha2Controller = TextEditingController();
 
   @observable
   String nome = "";

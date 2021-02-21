@@ -1,12 +1,13 @@
 import 'package:adote_me/Model/Usuario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ConexaoBD{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  CollectionReference ref;
-
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future cadastrarUsuario(Usuario usuario) async {
 
@@ -86,9 +87,42 @@ class ConexaoBD{
 
   }
 //******************************************************************************
+  Future<String> signInWithGoogle() async {
+    print('aqui');
+    await Firebase.initializeApp();
+    print('aqui2');
+    final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
-  bool deslogarUsuario(){
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+    print('aqui3');
+    final UserCredential authResult = await _auth.signInWithCredential(credential);
+    final User user = authResult.user;
+
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final User currentUser = _auth.currentUser;
+      assert(user.uid == currentUser.uid);
+
+      print('signInWithGoogle succeeded: $user');
+
+      return '$user';
+    }
+    return null;
+  }
+//******************************************************************************
+
+  Future<bool> deslogarUsuario() async {
+
+      await _googleSignIn.signOut();
+
      _auth.signOut();
+
      bool verificarUsuarioDeslogado =  checkCurrentUser();
      if(verificarUsuarioDeslogado){
        return false;

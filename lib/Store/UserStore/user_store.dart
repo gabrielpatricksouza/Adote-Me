@@ -1,4 +1,4 @@
-import 'package:adote_me/BancoDados/BancoDados.dart';
+import 'package:adote_me/BancoDados/Dao_User.dart';
 import 'package:mobx/mobx.dart';
 part 'user_store.g.dart';
 
@@ -19,5 +19,5 @@ abstract class _UserStore with Store{
 
   @action
   Future<bool> logOutUser() async =>
-      logOut = acesso.deslogarUsuario();
+      logOut = await acesso.deslogarUsuario();
 }

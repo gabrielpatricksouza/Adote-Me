@@ -1,6 +1,7 @@
-import 'package:adote_me/BancoDados/BancoDados.dart';
+import 'package:adote_me/BancoDados/Dao_User.dart';
 import 'package:adote_me/Model/Usuario.dart';
 import 'package:adote_me/View/Alert/SimpleAlert.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 part 'login_store.g.dart';
@@ -9,8 +10,11 @@ class LoginStore = _LoginStore with _$LoginStore;
 
 abstract class _LoginStore with Store{
 
-  Usuario usuario = Usuario();
-  ConexaoBD acessoBD = ConexaoBD();
+  Usuario _usuario = Usuario();
+  ConexaoBD _acessoBD = ConexaoBD();
+
+  final emailController = TextEditingController();
+  final senhaController = TextEditingController();
 
   @observable
   bool visualizar  = true;
@@ -51,10 +55,10 @@ abstract class _LoginStore with Store{
     if(finalizar){
       carregando = true;
 
-      usuario.email = email.trim();
-      usuario.senha = senha.trim();
+      _usuario.email = email.trim();
+      _usuario.senha = senha.trim();
 
-      resultado = await acessoBD.logarUsuario(usuario);
+      resultado = await _acessoBD.logarUsuario(_usuario);
 
       if(resultado != true){
         carregando = false;

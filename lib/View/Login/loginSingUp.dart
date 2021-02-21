@@ -68,7 +68,7 @@ class SingUp extends StatelessWidget {
                                   icon: Icons.person,
                                   hintText: "Nome",
                                   keyboardType: TextInputType.text,
-                                  controller: _controllerLogin.nomeController,
+                                  controller: _controllerLogin.registerStore.nomeController,
                                   onChanged:
                                   _controllerLogin.registerStore.setNome,
                                 )),
@@ -80,7 +80,7 @@ class SingUp extends StatelessWidget {
                                   icon: Icons.mail,
                                   hintText: "E-mail",
                                   keyboardType: TextInputType.emailAddress,
-                                  controller: _controllerLogin.emailController,
+                                  controller: _controllerLogin.registerStore.emailController,
                                   onChanged:
                                   _controllerLogin.registerStore.setEmail,
                                 )),
@@ -100,7 +100,7 @@ class SingUp extends StatelessWidget {
                                           : Icons.visibility,
                                     ),
                                   ),
-                                  controller: _controllerLogin.senhaController,
+                                  controller: _controllerLogin.registerStore.senhaController,
                                   obscure:
                                       _controllerLogin.registerStore.visualizar,
                                   onChanged:
@@ -121,7 +121,7 @@ class SingUp extends StatelessWidget {
                                           : Icons.visibility,
                                     ),
                                   ),
-                                  controller: _controllerLogin.senha2Controller,
+                                  controller: _controllerLogin.registerStore.senha2Controller,
                                   obscure:
                                       _controllerLogin.registerStore.visualizar,
                                   onChanged:
@@ -202,9 +202,12 @@ class SingUp extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
 
-                                  CustomCircleAvatar(
-                                    icon: FontAwesomeIcons.google,
-                                    color: Colors.redAccent,
+                                  GestureDetector(
+                                    onTap: _controllerLogin.loginWithGoogle,
+                                    child: CustomCircleAvatar(
+                                      icon: FontAwesomeIcons.google,
+                                      color: Colors.redAccent,
+                                    ),
                                   ),
 
                                   CustomCircleAvatar(

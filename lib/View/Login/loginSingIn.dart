@@ -59,7 +59,7 @@ class SingIn extends StatelessWidget {
                         icon: Icons.mail,
                         labelText: "E-mail",
                         keyboardType: TextInputType.text,
-                        controller: _controllerLogin.emailController,
+                        controller: _controllerLogin.loginStore.emailController,
                         onChanged: _controllerLogin.loginStore.setEmail,
                       )
                     ),
@@ -76,7 +76,7 @@ class SingIn extends StatelessWidget {
                                   ?  Icons.visibility_off
                                   :  Icons.visibility),
                             ),
-                            controller: _controllerLogin.senhaController,
+                            controller: _controllerLogin.loginStore.senhaController,
                             obscure: _controllerLogin.loginStore.visualizar,
                             onChanged: _controllerLogin.loginStore.setSenha,
                             keyboardType: TextInputType.visiblePassword,
