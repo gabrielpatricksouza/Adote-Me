@@ -56,8 +56,37 @@ abstract class _RegisterStore with Store{
   @observable
   bool carregando = false;
 
-  @observable
-  bool cadastrado = false;
+
+  @action
+  Future registerWithGoogle(context) async {
+    carregando = true;
+    bool response = await _acessoBD.loginWithGoogle();
+
+    if(response != true){
+      carregando = false;
+      customAlert(context, AlertType.error, "ATENÇÃO",
+          "Não foi possível cadastrar usuário, tente novamente mais tarde!");
+    }
+    else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+
+    carregando = false;
+  }
+
+  @action
+  Future registerWithFacebook(context) async {
+    carregando = true;
+    bool response = await _acessoBD.loginWithFacebook();
+
+    if(response != true){
+      carregando = false;
+      customAlert(context, AlertType.error, "ATENÇÃO",
+          "Não foi possível cadastrar usuário, tente novamente mais tarde!");
+    }
+    else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+
+    carregando = false;
+  }
+
 
   @action
   Future _cadastrarUsuario(context) async {
@@ -75,7 +104,7 @@ abstract class _RegisterStore with Store{
     if(_resultado != true){
       customAlert(context, AlertType.error, "ATENÇÃO", _resultado);
     }
-    else cadastrado = true;
+    else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
 
     carregando = false;
   }

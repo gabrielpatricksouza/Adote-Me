@@ -56,7 +56,7 @@ recuperarSenha(context) {
 
                 Usuario usuario = Usuario();
                 usuario.email = emailRecupera;
-                controllerLogin.recuperandoSenha(usuario);
+                controllerLogin.userStore.recuperandoSenha(usuario);
                 Navigator.pop(context);
 
                 customAlert(

@@ -10,6 +10,7 @@ class Usuario {
   bool admin   = false;
   bool noivos   = false;
 
+
   Usuario(){
     FirebaseFirestore db = FirebaseFirestore.instance;
     CollectionReference users = db.collection("usuarios");

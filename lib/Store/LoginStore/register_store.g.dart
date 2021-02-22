@@ -114,21 +114,6 @@ mixin _$RegisterStore on _RegisterStore, Store {
     });
   }
 
-  final _$cadastradoAtom = Atom(name: '_RegisterStore.cadastrado');
-
-  @override
-  bool get cadastrado {
-    _$cadastradoAtom.reportRead();
-    return super.cadastrado;
-  }
-
-  @override
-  set cadastrado(bool value) {
-    _$cadastradoAtom.reportWrite(value, super.cadastrado, () {
-      super.cadastrado = value;
-    });
-  }
-
   final _$nextAtom = Atom(name: '_RegisterStore.next');
 
   @override
@@ -142,6 +127,15 @@ mixin _$RegisterStore on _RegisterStore, Store {
     _$nextAtom.reportWrite(value, super.next, () {
       super.next = value;
     });
+  }
+
+  final _$registerWithGoogleAsyncAction =
+      AsyncAction('_RegisterStore.registerWithGoogle');
+
+  @override
+  Future<dynamic> registerWithGoogle(dynamic context) {
+    return _$registerWithGoogleAsyncAction
+        .run(() => super.registerWithGoogle(context));
   }
 
   final _$_cadastrarUsuarioAsyncAction =
@@ -254,7 +248,6 @@ senha2: ${senha2},
 visualizar: ${visualizar},
 visualizar2: ${visualizar2},
 carregando: ${carregando},
-cadastrado: ${cadastrado},
 next: ${next}
     ''';
   }

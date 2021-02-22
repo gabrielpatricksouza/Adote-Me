@@ -3,11 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as JSON;
 
 class ConexaoBD{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final facebookLogin = FacebookLogin();
+
+  Map userProfile;
 
   Future cadastrarUsuario(Usuario usuario) async {
 
@@ -87,10 +93,10 @@ class ConexaoBD{
 
   }
 //******************************************************************************
-  Future<String> signInWithGoogle() async {
-    print('aqui');
+  Future<bool> loginWithGoogle() async {
+
     await Firebase.initializeApp();
-    print('aqui2');
+
     final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
@@ -98,30 +104,83 @@ class ConexaoBD{
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
-    print('aqui3');
     final UserCredential authResult = await _auth.signInWithCredential(credential);
     final User user = authResult.user;
 
     if (user != null) {
+
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
 
       final User currentUser = _auth.currentUser;
       assert(user.uid == currentUser.uid);
 
-      print('signInWithGoogle succeeded: $user');
+      DocumentSnapshot documentSnapshot = await db.collection("usuarios").doc(user.uid).get();
 
-      return '$user';
+      if (documentSnapshot.exists == false){
+        Usuario usuario = Usuario();
+        usuario.email = user.email;
+        usuario.nome  = user.displayName;
+        usuario.idUsuario = user.uid;
+
+        try{
+          db.collection("usuarios")
+              .doc(user.uid)
+              .set(usuario.toMap());
+          return true;
+        }
+        catch (e) {
+          deslogarUsuario();
+          return false;
+        }
+      }
+      return true;
     }
-    return null;
+    return false;
+  }
+//******************************************************************************
+   Future loginWithFacebook() async{
+
+
+    final result = await facebookLogin.logIn(['email']);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final token = result.accessToken.token;
+
+        AuthCredential credential = FacebookAuthProvider.credential(token);
+        var a = await _auth.signInWithCredential(credential);
+
+        final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
+        final profile = JSON.jsonDecode(graphResponse.body);
+        print(profile);
+        // setState(() {
+          userProfile = profile;
+        //   _isLoggedIn = true;
+        // });
+        return true;
+        break;
+
+      case FacebookLoginStatus.cancelledByUser:
+        // setState(() => _isLoggedIn = false );
+        return false;
+        break;
+      case FacebookLoginStatus.error:
+        // setState(() => _isLoggedIn = false );
+        return false;
+        break;
+    }
+
   }
 //******************************************************************************
 
   Future<bool> deslogarUsuario() async {
 
-      await _googleSignIn.signOut();
-
      _auth.signOut();
+
+     facebookLogin.logOut();
+
+     await _googleSignIn.signOut();
 
      bool verificarUsuarioDeslogado =  checkCurrentUser();
      if(verificarUsuarioDeslogado){

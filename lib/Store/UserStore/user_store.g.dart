@@ -46,6 +46,15 @@ mixin _$UserStore on _UserStore, Store {
     return _$logOutUserAsyncAction.run(() => super.logOutUser());
   }
 
+  final _$recuperandoSenhaAsyncAction =
+      AsyncAction('_UserStore.recuperandoSenha');
+
+  @override
+  Future<dynamic> recuperandoSenha(Usuario usuario) {
+    return _$recuperandoSenhaAsyncAction
+        .run(() => super.recuperandoSenha(usuario));
+  }
+
   final _$_UserStoreActionController = ActionController(name: '_UserStore');
 
   @override

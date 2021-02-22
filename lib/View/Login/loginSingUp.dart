@@ -1,5 +1,6 @@
 import 'package:adote_me/Animacoes/FadeAnimation.dart';
 import 'package:adote_me/Controller/C_Login/controller_login.dart';
+import 'package:adote_me/View/Home/configuration.dart';
 import 'package:adote_me/View/Widgets/CustomAnimatedButton.dart';
 import 'package:adote_me/View/Widgets/CustomCircleAvatar.dart';
 import 'package:adote_me/View/Widgets/InputCustomizado.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SingUp extends StatelessWidget {
   final _controllerLogin = ControllerLogin();
@@ -39,17 +41,18 @@ class SingUp extends StatelessWidget {
           ),
           _controllerLogin.registerStore.carregando
               ? Center(
-                  child: CircularProgressIndicator(
-                    valueColor:
-                        new AlwaysStoppedAnimation<Color>(Color(0xff416d6d)),
-                    backgroundColor: Color(0xff5C9999),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Center(child: SpinKitWave(color: primaryGreen, size: 45,))
+                    ],
                   ),
                 )
-              : Observer(
-                  builder: (_) => Padding(
+              : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 38.0),
                     child: SingleChildScrollView(
-                      child: Column(
+                      child: Observer(
+                        builder: (_) =>  Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Align(
@@ -155,11 +158,6 @@ class SingUp extends StatelessWidget {
                                       onTap: () {
                                         _controllerLogin.registerStore
                                             .validandoSenhas(context);
-                                        if (_controllerLogin
-                                            .registerStore.cadastrado) {
-                                          Navigator.pushNamedAndRemoveUntil(
-                                              context, "/home", (route) => false);
-                                        } else
                                           FocusScope.of(context).unfocus();
                                       },
                                       widhtMultiply: 1,
@@ -203,22 +201,33 @@ class SingUp extends StatelessWidget {
                                 children: [
 
                                   GestureDetector(
-                                    onTap: _controllerLogin.loginWithGoogle,
+                                    onTap: (){
+                                      _controllerLogin.registerStore
+                                          .registerWithGoogle(context);
+                                      FocusScope.of(context).unfocus();
+                                    },
                                     child: CustomCircleAvatar(
                                       icon: FontAwesomeIcons.google,
                                       color: Colors.redAccent,
                                     ),
                                   ),
 
-                                  CustomCircleAvatar(
-                                    icon: FontAwesomeIcons.facebookF,
-                                    color: Colors.blue,
+                                  GestureDetector(
+                                    onTap: (){
+                                      _controllerLogin.registerStore
+                                          .registerWithFacebook(context);
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    child: CustomCircleAvatar(
+                                      icon: FontAwesomeIcons.facebookF,
+                                      color: Colors.blue,
+                                    ),
                                   ),
 
-                                  CustomCircleAvatar(
-                                    icon: FontAwesomeIcons.twitter,
-                                    color: Colors.lightBlueAccent,
-                                  ),
+                                  // CustomCircleAvatar(
+                                  //   icon: FontAwesomeIcons.twitter,
+                                  //   color: Colors.lightBlueAccent,
+                                  // ),
                                 ],
                               ),
                             ),
