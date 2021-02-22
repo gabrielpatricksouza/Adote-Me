@@ -28,8 +28,8 @@ List<Map> drawerItems=[
     'route':  ""
   },
   {
-    'icon': FontAwesomeIcons.userAlt,
-    'title' : 'Perfil',
+    'icon': FontAwesomeIcons.question,
+    'title' : 'Sobre',
     'route':  ""
   },
 ];

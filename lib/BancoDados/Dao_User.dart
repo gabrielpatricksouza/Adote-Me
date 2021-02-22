@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as JSON;
 
 class ConexaoBD{
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -37,18 +35,26 @@ class ConexaoBD{
     catch (error){
 
       var errorMessage;
+
       switch (error.code) {
-        case "ERROR_WEAK_PASSWORD":
+        case "weak-password":
           errorMessage = "Senha fraca!";
           return errorMessage;
-        case "ERROR_INVALID_EMAIL":
-          errorMessage = "O e-mail informado não parece ser um e-mail!";
+
+        case "invalid-email":
+          errorMessage = "O valor fornecido para a propriedade do usuário email é inválido!";
           return  errorMessage;
-        case "ERROR_EMAIL_ALREADY_IN_USE":
-          errorMessage = "O email já está sendo usado por outro usuário.";
+
+        case "email-already-exists":
+          errorMessage = "O e-mail fornecido já está em uso por outro usuário. ";
           return errorMessage;
+
+        case "email-already-in-use":
+          errorMessage = "O e-mail fornecido já está em uso por outro usuário. ";
+          return errorMessage;
+
         default:
-          errorMessage = "Um erro desconhecido ocorreu.$error";
+          errorMessage = "Um erro desconhecido ocorreu.";
           return errorMessage;
       }
     }
@@ -65,26 +71,39 @@ class ConexaoBD{
       return true;
     }
     catch(error){
+
       var errorMessage;
+      print(error.code);
+
       switch (error.code) {
-        case "ERROR_INVALID_EMAIL":
-          errorMessage = "O e-mail informado não parece ser um e-mail!";
+        case "invalid-email":
+          errorMessage = "O valor fornecido para a propriedade do usuário email é inválido!";
           return errorMessage;
-        case "ERROR_WRONG_PASSWORD":
+
+        case "wrong-password":
           errorMessage = "Senha errada!";
           return errorMessage;
-        case "ERROR_USER_NOT_FOUND":
+
+        case "user-not-found":
           errorMessage = "O usuário não existe.";
+
           return errorMessage;
-        case "ERROR_USER_DISABLED":
+        case "user-disable":
           errorMessage = "Esse usuário foi desabilitado.";
           return errorMessage;
-        case "ERROR_TOO_MANY_REQUESTS":
+
+        case "too-many-requests":
           errorMessage = "Muitas requisições. Tente mais tarde.";
           return errorMessage;
-        case "ERROR_OPERATION_NOT_ALLOWED":
+
+        case "operation-not-allowed":
           errorMessage = "Login com email e senha não está habilitado.";
           return errorMessage;
+
+        case "email-already-in-use":
+          errorMessage = "O e-mail fornecido já está em uso por outro usuário. ";
+          return errorMessage;
+
         default:
           errorMessage = "Um erro desconhecido ocorreu.";
           return errorMessage;
@@ -141,7 +160,6 @@ class ConexaoBD{
 //******************************************************************************
    Future loginWithFacebook() async{
 
-
     final result = await facebookLogin.logIn(['email']);
 
     switch (result.status) {
@@ -149,24 +167,35 @@ class ConexaoBD{
         final token = result.accessToken.token;
 
         AuthCredential credential = FacebookAuthProvider.credential(token);
-        var a = await _auth.signInWithCredential(credential);
+        var reponse = await _auth.signInWithCredential(credential);
 
-        final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
-        final profile = JSON.jsonDecode(graphResponse.body);
-        print(profile);
-        // setState(() {
-          userProfile = profile;
-        //   _isLoggedIn = true;
-        // });
+        DocumentSnapshot documentSnapshot = await db.collection("usuarios")
+            .doc(reponse.user.uid).get();
+
+        if (documentSnapshot.exists == false){
+          Usuario usuario = Usuario();
+          usuario.email = reponse.user.email;
+          usuario.nome  = reponse.user.displayName;
+          usuario.idUsuario = reponse.user.uid;
+
+          try{
+            db.collection("usuarios")
+                .doc(reponse.user.uid)
+                .set(usuario.toMap());
+            return true;
+          }
+          catch (e) {
+            deslogarUsuario();
+            return false;
+          }
+        }
         return true;
         break;
 
       case FacebookLoginStatus.cancelledByUser:
-        // setState(() => _isLoggedIn = false );
         return false;
         break;
       case FacebookLoginStatus.error:
-        // setState(() => _isLoggedIn = false );
         return false;
         break;
     }

@@ -43,8 +43,6 @@ dependencies:
     #Biblioteca de tipos de carregamentos
   flutter_spinkit: ^4.1.2
 
-    #Biblioteca de requisiçoes web
-  http: ^0.12.2
 
     #Bibliotecas para Firebase
   firebase_core: ^0.7.0    #Recursos básicos

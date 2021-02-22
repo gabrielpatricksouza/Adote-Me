@@ -101,12 +101,12 @@ abstract class _RegisterStore with Store{
 
     _resultado = await _acessoBD.cadastrarUsuario(usuario);
 
+    carregando = false;
+
     if(_resultado != true){
       customAlert(context, AlertType.error, "ATENÇÃO", _resultado);
     }
     else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
-
-    carregando = false;
   }
 
   @observable

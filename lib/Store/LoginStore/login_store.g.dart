@@ -109,8 +109,8 @@ mixin _$LoginStore on _LoginStore, Store {
   final _$logarUsuarioAsyncAction = AsyncAction('_LoginStore.logarUsuario');
 
   @override
-  Future<dynamic> logarUsuario(dynamic context) {
-    return _$logarUsuarioAsyncAction.run(() => super.logarUsuario(context));
+  Future<dynamic> signInWithEmailAndPassword(dynamic context) {
+    return _$logarUsuarioAsyncAction.run(() => super.signInWithEmailAndPassword(context));
   }
 
   final _$_LoginStoreActionController = ActionController(name: '_LoginStore');

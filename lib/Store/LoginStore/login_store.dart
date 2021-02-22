@@ -50,20 +50,21 @@ abstract class _LoginStore with Store{
   dynamic resultado = false;
 
   @action
-  Future logarUsuario(context) async {
+  Future signInWithEmailAndPassword(context) async {
+    carregando = true;
 
     if(finalizar){
-      carregando = true;
 
       _usuario.email = email.trim();
       _usuario.senha = senha.trim();
 
       resultado = await _acessoBD.logarUsuario(_usuario);
+      carregando = false;
 
       if(resultado != true){
-        carregando = false;
         customAlert(context, AlertType.info, "ATENÇÃO", resultado);
       }
+      else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
     }
     else customAlert(
         context,
@@ -71,5 +72,36 @@ abstract class _LoginStore with Store{
         "ATENÇÃO",
         "Preencha todos os campos para prosseguirmos!"
     );
+  }
+
+  @action
+  Future singInWithGoogle(context) async {
+    carregando = true;
+    bool response = await _acessoBD.loginWithGoogle();
+
+    if(response != true){
+      carregando = false;
+      //mensagem diferente do registerStore
+      customAlert(context, AlertType.error, "ATENÇÃO",
+          "Não foi possível entrar no app, tente novamente mais tarde!");
+    }
+    else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+
+    carregando = false;
+  }
+
+  @action
+  Future singInWithFacebook(context) async {
+    carregando = true;
+    bool response = await _acessoBD.loginWithFacebook();
+
+    if(response != true){
+      carregando = false;
+      customAlert(context, AlertType.error, "ATENÇÃO",
+          "Não foi possível entrar no app, tente novamente mais tarde!");
+    }
+    else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+
+    carregando = false;
   }
 }
