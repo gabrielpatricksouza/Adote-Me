@@ -5,35 +5,26 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
-class ConexaoBD{
+class ConexaoBD {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final facebookLogin = FacebookLogin();
 
-  Map userProfile;
-
   Future cadastrarUsuario(Usuario usuario) async {
-
     try {
-      await _auth.createUserWithEmailAndPassword(
-
-          email: usuario.email,
-          password: usuario.senha
-
-      ).then((firebaseUser) {
+      await _auth
+          .createUserWithEmailAndPassword(
+              email: usuario.email, password: usuario.senha)
+          .then((firebaseUser) {
         usuario.idUsuario = firebaseUser.user.uid;
+        usuario.urlImage =
+            "https://firebasestorage.googleapis.com/v0/b/adote-me-2ab97.appspot.com/o/perfil%2FlogoSmall.png?alt=media&token=9b551503-6e2e-4a69-afae-65cb71bbb43d";
         //Salvar dados do usuário
-        db.collection("usuarios")
-            .doc(usuario.idUsuario)
-            .set(usuario.toMap());
-        print("aq");
-
+        db.collection("usuarios").doc(usuario.idUsuario).set(usuario.toMap());
       });
       return true;
-    }
-    catch (error){
-
+    } catch (error) {
       var errorMessage;
 
       switch (error.code) {
@@ -42,15 +33,18 @@ class ConexaoBD{
           return errorMessage;
 
         case "invalid-email":
-          errorMessage = "O valor fornecido para a propriedade do usuário email é inválido!";
-          return  errorMessage;
+          errorMessage =
+              "O valor fornecido para a propriedade do usuário email é inválido!";
+          return errorMessage;
 
         case "email-already-exists":
-          errorMessage = "O e-mail fornecido já está em uso por outro usuário. ";
+          errorMessage =
+              "O e-mail fornecido já está em uso por outro usuário. ";
           return errorMessage;
 
         case "email-already-in-use":
-          errorMessage = "O e-mail fornecido já está em uso por outro usuário. ";
+          errorMessage =
+              "O e-mail fornecido já está em uso por outro usuário. ";
           return errorMessage;
 
         default:
@@ -62,22 +56,17 @@ class ConexaoBD{
 //******************************************************************************
 
   Future logarUsuario(Usuario usuario) async {
-
     try {
       await _auth.signInWithEmailAndPassword(
-          email: usuario.email,
-          password: usuario.senha
-      );
+          email: usuario.email, password: usuario.senha);
       return true;
-    }
-    catch(error){
-
+    } catch (error) {
       var errorMessage;
-      print(error.code);
 
       switch (error.code) {
         case "invalid-email":
-          errorMessage = "O valor fornecido para a propriedade do usuário email é inválido!";
+          errorMessage =
+              "O valor fornecido para a propriedade do usuário email é inválido!";
           return errorMessage;
 
         case "wrong-password":
@@ -101,7 +90,8 @@ class ConexaoBD{
           return errorMessage;
 
         case "email-already-in-use":
-          errorMessage = "O e-mail fornecido já está em uso por outro usuário. ";
+          errorMessage =
+              "O e-mail fornecido já está em uso por outro usuário. ";
           return errorMessage;
 
         default:
@@ -109,57 +99,61 @@ class ConexaoBD{
           return errorMessage;
       }
     }
-
   }
+
 //******************************************************************************
   Future<bool> loginWithGoogle() async {
-
     await Firebase.initializeApp();
 
-    final GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+    final GoogleSignInAccount googleSignInAccount =
+        await _googleSignIn.signIn();
 
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-    final UserCredential authResult = await _auth.signInWithCredential(credential);
-    final User user = authResult.user;
+    if(googleSignInAccount != null){
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-    if (user != null) {
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      final UserCredential authResult =
+          await _auth.signInWithCredential(credential);
+      final User user = authResult.user;
+      print('User: $user');
 
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
+      if (user != null) {
+        assert(!user.isAnonymous);
+        assert(await user.getIdToken() != null);
 
-      final User currentUser = _auth.currentUser;
-      assert(user.uid == currentUser.uid);
+        final User currentUser = _auth.currentUser;
+        assert(user.uid == currentUser.uid);
 
-      DocumentSnapshot documentSnapshot = await db.collection("usuarios").doc(user.uid).get();
+        DocumentSnapshot documentSnapshot =
+            await db.collection("usuarios").doc(user.uid).get();
 
-      if (documentSnapshot.exists == false){
-        Usuario usuario = Usuario();
-        usuario.email = user.email;
-        usuario.nome  = user.displayName;
-        usuario.idUsuario = user.uid;
+        if (documentSnapshot.exists == false) {
+          Usuario usuario = Usuario();
+          usuario.email = user.email;
+          usuario.nome = user.displayName;
+          usuario.idUsuario = user.uid;
+          usuario.urlImage = user.photoURL;
 
-        try{
-          db.collection("usuarios")
-              .doc(user.uid)
-              .set(usuario.toMap());
-          return true;
+          try {
+            db.collection("usuarios").doc(user.uid).set(usuario.toMap());
+            return true;
+          } catch (e) {
+            deslogarUsuario();
+            return false;
+          }
         }
-        catch (e) {
-          deslogarUsuario();
-          return false;
-        }
+        return true;
       }
-      return true;
     }
     return false;
   }
-//******************************************************************************
-   Future loginWithFacebook() async{
 
+//******************************************************************************
+  Future loginWithFacebook() async {
     final result = await facebookLogin.logIn(['email']);
 
     switch (result.status) {
@@ -169,22 +163,23 @@ class ConexaoBD{
         AuthCredential credential = FacebookAuthProvider.credential(token);
         var reponse = await _auth.signInWithCredential(credential);
 
-        DocumentSnapshot documentSnapshot = await db.collection("usuarios")
-            .doc(reponse.user.uid).get();
+        DocumentSnapshot documentSnapshot =
+            await db.collection("usuarios").doc(reponse.user.uid).get();
 
-        if (documentSnapshot.exists == false){
+        if (documentSnapshot.exists == false) {
           Usuario usuario = Usuario();
           usuario.email = reponse.user.email;
-          usuario.nome  = reponse.user.displayName;
+          usuario.nome = reponse.user.displayName;
           usuario.idUsuario = reponse.user.uid;
+          usuario.urlImage = reponse.user.photoURL;
 
-          try{
+          try {
             db.collection("usuarios")
-                .doc(reponse.user.uid)
-                .set(usuario.toMap());
+              .doc(reponse.user.uid)
+              .set(usuario.toMap());
             return true;
-          }
-          catch (e) {
+
+          } catch (e) {
             deslogarUsuario();
             return false;
           }
@@ -199,37 +194,34 @@ class ConexaoBD{
         return false;
         break;
     }
-
   }
 //******************************************************************************
 
   Future<bool> deslogarUsuario() async {
 
-     _auth.signOut();
+    await  _auth.signOut();
 
-     facebookLogin.logOut();
+    await facebookLogin.logOut();
 
-     await _googleSignIn.signOut();
+    await _googleSignIn.signOut();
 
-     bool verificarUsuarioDeslogado =  checkCurrentUser();
-     if(verificarUsuarioDeslogado){
-       return false;
-     }
-     else{
-       return true;
-     }
+    bool verificarUsuarioDeslogado = checkCurrentUser();
+    if (verificarUsuarioDeslogado) {
+      return false;
+    } else {
+      return true;
+    }
   }
 //******************************************************************************
 
   Future alterarEmail(Usuario usuario) async {
     final user = FirebaseAuth.instance.currentUser;
 
-    bool updateEmail = await user.updateEmail(usuario.email)
-          .then((firebase){
-          return true;
-        }).catchError((error){
-          return false;
-        });
+    bool updateEmail = await user.updateEmail(usuario.email).then((firebase) {
+      return true;
+    }).catchError((error) {
+      return false;
+    });
 
     return updateEmail;
   }
@@ -241,73 +233,65 @@ class ConexaoBD{
     bool deleteDB;
     bool exclusao;
 
-    try{
+    try {
       userDB.collection("usuarios").doc(user.uid).delete();
       deleteDB = true;
-    }
-    catch(error){
+    } catch (error) {
       deleteDB = false;
     }
 
-    if(deleteDB){
-      exclusao = await user.delete()
-          .then((firebaseUser){
-            return true;
-
-      })
-          .catchError((error){
-            return false;
+    if (deleteDB) {
+      exclusao = await user.delete().then((firebaseUser) {
+        return true;
+      }).catchError((error) {
+        return false;
       });
-    }else{
+    } else {
       exclusao = false;
     }
 
+    print("BD : " + exclusao.toString());
     return exclusao;
   }
 
 //******************************************************************************
 
-  Future<void> esqueciSenha(Usuario usuario) async {
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: usuario.email);
+  Future<String> esqueciSenha(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
 //******************************************************************************
 
-  bool checkCurrentUser(){
-    User user =  _auth.currentUser;
+  bool checkCurrentUser() {
+    User user = _auth.currentUser;
     return user != null ? true : false;
   }
 
 //******************************************************************************
   Future recuperarDadosUsuario() async {
-    User user =  _auth.currentUser;
+    User user = _auth.currentUser;
     Usuario usuario = Usuario();
 
-    DocumentSnapshot snapshot      = await db.collection("usuarios")
-                                          .doc(user.uid)
-                                          .get();
+    DocumentSnapshot snapshot =
+        await db.collection("usuarios").doc(user.uid).get();
 
-    DocumentSnapshot snapshotAdmin = await db.collection("admins")
-                                          .doc(user.uid)
-                                          .get();
+    DocumentSnapshot snapshotAdmin =
+        await db.collection("admins").doc(user.uid).get();
 
     Map<String, dynamic> dados = snapshot.data();
-    usuario.nome       = dados['nome'];
-    usuario.email      = dados['email'];
-    usuario.idUsuario  = dados['id'];
+    usuario.nome = dados['nome'];
+    usuario.email = dados['email'];
+    usuario.idUsuario = dados['id'];
+    usuario.urlImage = dados['urlImage'];
 
-    if(snapshotAdmin.exists) {
+    if (snapshotAdmin.exists) {
       usuario.admin = true;
-    }
-    else{
+    } else {
       usuario.admin = false;
-
     }
 
     return usuario;
   }
 //******************************************************************************
 
-
 }
-

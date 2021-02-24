@@ -7,9 +7,9 @@ class Usuario {
   String _email;
   String _senha;
 
-  bool admin   = false;
-  bool noivos   = false;
+  String _urlImage;
 
+  bool admin   = false;
 
   Usuario(){
     FirebaseFirestore db = FirebaseFirestore.instance;
@@ -23,9 +23,17 @@ class Usuario {
     Map<String, dynamic> map = {
       "id"           : this.idUsuario,
       "nome"         : this.nome,
-      "email"        : this.email
+      "email"        : this.email,
+      "urlImage"     : this.urlImage
     };
     return map;
+  }
+
+
+  String get urlImage => _urlImage;
+
+  set urlImage(String value) {
+    _urlImage = value;
   }
 
   String get senha => _senha;

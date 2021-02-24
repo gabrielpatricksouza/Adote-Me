@@ -1,90 +1,90 @@
 import 'package:adote_me/Controller/C_Home/controller_home.dart';
 import 'package:adote_me/View/Home/screenDetails.dart';
 import 'package:adote_me/View/Utilits/CustomCard.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:adote_me/bloc/Navigation/navigation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
+class HomeScreen extends StatelessWidget with NavigationStates {
+  final Function onMenuTap;
 
-class _HomeScreenState extends State<HomeScreen> {
+  HomeScreen({Key key, this.onMenuTap}) : super(key: key);
+
   final controllerHome = ControllerHome();
 
   @override
   Widget build(BuildContext context) {
-
-    return Observer(builder: (context) {
-      return AnimatedContainer(
-        transform: Matrix4.translationValues(
-            controllerHome.homeStore.xOffset,
-            controllerHome.homeStore.yOffset, 0)
-              ..scale(controllerHome.homeStore.scaleFactor)
-              ..rotateY(controllerHome.homeStore.isDrawerOpen ? -0.5 : 0),
-        duration: Duration(milliseconds: 250),
+    return Observer(
+      builder: (_) =>  AnimatedContainer(
+        duration: Duration(milliseconds: 300),
         decoration: BoxDecoration(
-            color: Color(0xffd7ecec),
-            borderRadius:
-                BorderRadius.circular(
-                    controllerHome.homeStore.isDrawerOpen
-                        ? 40 : 0.0
-                )
+          borderRadius: BorderRadius.all(
+              Radius.circular(
+                  controllerHome.homeStore.isDrawerOpen ? 20 : 0)
+          ),
+          color: Color(0xffd7ecec),
         ),
-        child: Column(
-          children: [
-            SizedBox(height: 35),
-
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  controllerHome.homeStore.isDrawerOpen
-                      ? IconButton(
-                          icon: Icon(Icons.arrow_back_ios),
-                          onPressed: controllerHome.homeStore.menuOff,
-                        )
-                      : IconButton(
-                          icon: Icon(Icons.menu),
-                          onPressed: controllerHome.homeStore.menuOn
-                  ),
-                  Image.asset("assets/images/logoSmall.png", width: 100,),
-
-                  Icon(Icons.search)
-                ],
-              ),
-            ),
-
-            Expanded(
-              child: NotificationListener<OverscrollIndicatorNotification>(
-                onNotification: (OverscrollIndicatorNotification overscroll) {
-                  overscroll.disallowGlow();
-                  return;
-                },
-                child: ListView(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => ScreenDetails()));
-                      },
-                      child: CustomCard(
-                          foto:'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg',
-
+        child: Container(
+          padding: const EdgeInsets.only(top: 35),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      controllerHome.homeStore.isDrawerOpen
+                          ? IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        onPressed: (){
+                          onMenuTap();
+                          controllerHome.homeStore.menuOff();
+                        },
                       )
-                    ),
-                    SizedBox(
-                      height: 50,
-                    )
+                          : IconButton(
+                          icon: Icon(Icons.menu, size: 30,),
+                          onPressed: (){
+                            onMenuTap();
+                            controllerHome.homeStore.menuOn();
+                          }
+                      ),
+                      Image.asset("assets/images/logoSmall.png", width: 80,),
+
+                      Icon(Icons.search, size: 30,)
                   ],
                 ),
               ),
-            ),
-          ],
+
+              Expanded(
+                child: NotificationListener<OverscrollIndicatorNotification>(
+                  onNotification: (OverscrollIndicatorNotification overscroll) {
+                    overscroll.disallowGlow();
+                    return;
+                  },
+                  child: ListView(
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => ScreenDetails()));
+                          },
+                          child: CustomCard(
+                            foto:'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/dog_cool_summer_slideshow/1800x1200_dog_cool_summer_other.jpg',
+                          )
+                      ),
+                      SizedBox(
+                        height: 50,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      );
-    });
+      ),
+    );
   }
 }

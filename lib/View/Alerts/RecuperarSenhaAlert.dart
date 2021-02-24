@@ -1,5 +1,4 @@
 import 'package:adote_me/Controller/C_Login/controller_login.dart';
-import 'package:adote_me/Model/Usuario.dart';
 import 'package:adote_me/View/Home/configuration.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -54,12 +53,10 @@ recuperarSenha(context) {
             if (emailRecupera.isNotEmpty) {
               if (EmailValidator.validate(emailRecupera)) {
 
-                Usuario usuario = Usuario();
-                usuario.email = emailRecupera;
-                controllerLogin.userStore.recuperandoSenha(usuario);
+                controllerLogin.userStore.recuperandoSenha(emailRecupera);
                 Navigator.pop(context);
 
-                customAlert(
+                simpleCustomAlert(
                     context,
                     AlertType.info,
                     "ATENÇÃO",
@@ -68,7 +65,7 @@ recuperarSenha(context) {
 
               } else {
 
-                customAlert(
+                simpleCustomAlert(
                     context,
                     AlertType.info,
                     "ATENÇÃO",
@@ -77,7 +74,7 @@ recuperarSenha(context) {
               }
             } else {
 
-              customAlert(
+              simpleCustomAlert(
                   context,
                   AlertType.info,
                   "ATENÇÃO",

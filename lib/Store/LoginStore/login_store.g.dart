@@ -106,11 +106,31 @@ mixin _$LoginStore on _LoginStore, Store {
     });
   }
 
-  final _$logarUsuarioAsyncAction = AsyncAction('_LoginStore.logarUsuario');
+  final _$signInWithEmailAndPasswordAsyncAction =
+      AsyncAction('_LoginStore.signInWithEmailAndPassword');
 
   @override
   Future<dynamic> signInWithEmailAndPassword(dynamic context) {
-    return _$logarUsuarioAsyncAction.run(() => super.signInWithEmailAndPassword(context));
+    return _$signInWithEmailAndPasswordAsyncAction
+        .run(() => super.signInWithEmailAndPassword(context));
+  }
+
+  final _$singInWithGoogleAsyncAction =
+      AsyncAction('_LoginStore.singInWithGoogle');
+
+  @override
+  Future<dynamic> singInWithGoogle(dynamic context) {
+    return _$singInWithGoogleAsyncAction
+        .run(() => super.singInWithGoogle(context));
+  }
+
+  final _$singInWithFacebookAsyncAction =
+      AsyncAction('_LoginStore.singInWithFacebook');
+
+  @override
+  Future<dynamic> singInWithFacebook(dynamic context) {
+    return _$singInWithFacebookAsyncAction
+        .run(() => super.singInWithFacebook(context));
   }
 
   final _$_LoginStoreActionController = ActionController(name: '_LoginStore');

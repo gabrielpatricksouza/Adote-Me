@@ -1,7 +1,8 @@
 import 'package:adote_me/BancoDados/Dao_User.dart';
 import 'package:adote_me/Model/Usuario.dart';
-import 'package:adote_me/View/Alert/SimpleAlert.dart';
+import 'package:adote_me/View/Alerts/SimpleAlert.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 part 'login_store.g.dart';
@@ -62,11 +63,11 @@ abstract class _LoginStore with Store{
       carregando = false;
 
       if(resultado != true){
-        customAlert(context, AlertType.info, "ATENÇÃO", resultado);
+        simpleCustomAlert(context, AlertType.info, "ATENÇÃO", resultado);
       }
       else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
     }
-    else customAlert(
+    else simpleCustomAlert(
         context,
         AlertType.info,
         "ATENÇÃO",
@@ -82,8 +83,8 @@ abstract class _LoginStore with Store{
     if(response != true){
       carregando = false;
       //mensagem diferente do registerStore
-      customAlert(context, AlertType.error, "ATENÇÃO",
-          "Não foi possível entrar no app, tente novamente mais tarde!");
+      simpleCustomAlert(context, AlertType.error, "ATENÇÃO",
+          "Não foi possível entrar no app!");
     }
     else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
 
@@ -97,11 +98,12 @@ abstract class _LoginStore with Store{
 
     if(response != true){
       carregando = false;
-      customAlert(context, AlertType.error, "ATENÇÃO",
-          "Não foi possível entrar no app, tente novamente mais tarde!");
+      simpleCustomAlert(context, AlertType.error, "ATENÇÃO",
+          "Não foi possível entrar no app!");
     }
     else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
 
     carregando = false;
   }
+
 }

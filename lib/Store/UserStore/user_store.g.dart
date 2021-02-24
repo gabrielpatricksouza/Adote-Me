@@ -39,6 +39,51 @@ mixin _$UserStore on _UserStore, Store {
     });
   }
 
+  final _$nomeAtom = Atom(name: '_UserStore.nome');
+
+  @override
+  String get nome {
+    _$nomeAtom.reportRead();
+    return super.nome;
+  }
+
+  @override
+  set nome(String value) {
+    _$nomeAtom.reportWrite(value, super.nome, () {
+      super.nome = value;
+    });
+  }
+
+  final _$emailAtom = Atom(name: '_UserStore.email');
+
+  @override
+  String get email {
+    _$emailAtom.reportRead();
+    return super.email;
+  }
+
+  @override
+  set email(String value) {
+    _$emailAtom.reportWrite(value, super.email, () {
+      super.email = value;
+    });
+  }
+
+  final _$urlImagemAtom = Atom(name: '_UserStore.urlImagem');
+
+  @override
+  String get urlImagem {
+    _$urlImagemAtom.reportRead();
+    return super.urlImagem;
+  }
+
+  @override
+  set urlImagem(String value) {
+    _$urlImagemAtom.reportWrite(value, super.urlImagem, () {
+      super.urlImagem = value;
+    });
+  }
+
   final _$logOutUserAsyncAction = AsyncAction('_UserStore.logOutUser');
 
   @override
@@ -50,9 +95,32 @@ mixin _$UserStore on _UserStore, Store {
       AsyncAction('_UserStore.recuperandoSenha');
 
   @override
-  Future<dynamic> recuperandoSenha(Usuario usuario) {
+  Future<String> recuperandoSenha(String email) {
     return _$recuperandoSenhaAsyncAction
-        .run(() => super.recuperandoSenha(usuario));
+        .run(() => super.recuperandoSenha(email));
+  }
+
+  final _$mudandoEmailAsyncAction = AsyncAction('_UserStore.mudandoEmail');
+
+  @override
+  Future<Usuario> mudandoEmail(Usuario usuario) {
+    return _$mudandoEmailAsyncAction.run(() => super.mudandoEmail(usuario));
+  }
+
+  final _$deletandoContaAsyncAction = AsyncAction('_UserStore.deletandoConta');
+
+  @override
+  Future<dynamic> deletandoConta() {
+    return _$deletandoContaAsyncAction.run(() => super.deletandoConta());
+  }
+
+  final _$recuperandoDadosUsuarioAsyncAction =
+      AsyncAction('_UserStore.recuperandoDadosUsuario');
+
+  @override
+  Future<dynamic> recuperandoDadosUsuario() {
+    return _$recuperandoDadosUsuarioAsyncAction
+        .run(() => super.recuperandoDadosUsuario());
   }
 
   final _$_UserStoreActionController = ActionController(name: '_UserStore');
@@ -72,7 +140,10 @@ mixin _$UserStore on _UserStore, Store {
   String toString() {
     return '''
 loggedUser: ${loggedUser},
-logOut: ${logOut}
+logOut: ${logOut},
+nome: ${nome},
+email: ${email},
+urlImagem: ${urlImagem}
     ''';
   }
 }

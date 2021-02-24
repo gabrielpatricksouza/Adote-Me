@@ -1,7 +1,8 @@
+import 'package:adote_me/View/Login/login.dart';
 import 'package:adote_me/View/Login/loginSingIn.dart';
 import 'package:adote_me/View/Login/loginSingUp.dart';
+import 'package:adote_me/View/Perfil/minhaConta.dart';
 import 'package:adote_me/View/home.dart';
-import 'package:adote_me/View/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,12 +11,12 @@ class RouteGenerator {
   // ignore: missing_return
   static Route<dynamic> generateRoute(RouteSettings settings){
 
-    // final args = settings.arguments;//recebe os argumentos(parametros) passados
+    final args = settings.arguments;//recebe os argumentos(parametros) passados
 
     switch(settings.name){
 
       case "/":
-        // return MaterialPageRoute(builder: (_)=> TelaLogin()); // (_) == context
+        return MaterialPageRoute(builder: (_)=> HomePage());
 
       case "/home":
         return MaterialPageRoute(builder: (_)=> HomePage());
@@ -28,6 +29,10 @@ class RouteGenerator {
 
       case "/singUp":
         return MaterialPageRoute(builder: (_)=> SingUp());
+
+      case "/minhaConta":
+        return MaterialPageRoute(builder: (_)=>MinhaConta(args));
+
 
 
       default:

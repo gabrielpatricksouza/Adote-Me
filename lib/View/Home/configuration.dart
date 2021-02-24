@@ -6,34 +6,6 @@ List<BoxShadow> shadowList = [
   BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
 ];
 
-List<Map> drawerItems=[
-  {
-    'icon': FontAwesomeIcons.paw,
-    'title' : 'Adoção',
-    'route':  "" //EX:/adocao
-  },
-  {
-    'icon': FontAwesomeIcons.handHoldingHeart,
-    'title' : 'Doação',
-    'route':  ""
-  },
-  {
-    'icon': Icons.favorite,
-    'title' : 'Favoritos',
-    'route':  ""
-  },
-  {
-    'icon': FontAwesomeIcons.solidHandshake,
-    'title' : 'Parceiros',
-    'route':  ""
-  },
-  {
-    'icon': FontAwesomeIcons.question,
-    'title' : 'Sobre',
-    'route':  ""
-  },
-];
-
 List<Map> screenItems=[
   {
     'icon': FontAwesomeIcons.dog,

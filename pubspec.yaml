@@ -27,6 +27,7 @@ dependencies:
     #Gerenciamento de Estado
   mobx: ^1.2.1+4
   flutter_mobx: ^1.1.0+2
+  flutter_bloc: ^2.1.1
 
     #Tradução para pt-Br de alguns componentes
   flutter_cupertino_localizations: ^1.0.1
@@ -42,7 +43,6 @@ dependencies:
 
     #Biblioteca de tipos de carregamentos
   flutter_spinkit: ^4.1.2
-
 
     #Bibliotecas para Firebase
   firebase_core: ^0.7.0    #Recursos básicos

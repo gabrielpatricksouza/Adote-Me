@@ -1,7 +1,7 @@
 import 'package:adote_me/BO/BO_Cadastro.dart';
 import 'package:adote_me/BancoDados/Dao_User.dart';
 import 'package:adote_me/Model/Usuario.dart';
-import 'package:adote_me/View/Alert/SimpleAlert.dart';
+import 'package:adote_me/View/Alerts/SimpleAlert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -64,7 +64,7 @@ abstract class _RegisterStore with Store{
 
     if(response != true){
       carregando = false;
-      customAlert(context, AlertType.error, "ATENÇÃO",
+      simpleCustomAlert(context, AlertType.error, "ATENÇÃO",
           "Não foi possível cadastrar usuário, tente novamente mais tarde!");
     }
     else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
@@ -79,7 +79,7 @@ abstract class _RegisterStore with Store{
 
     if(response != true){
       carregando = false;
-      customAlert(context, AlertType.error, "ATENÇÃO",
+      simpleCustomAlert(context, AlertType.error, "ATENÇÃO",
           "Não foi possível cadastrar usuário, tente novamente mais tarde!");
     }
     else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
@@ -104,7 +104,7 @@ abstract class _RegisterStore with Store{
     carregando = false;
 
     if(_resultado != true){
-      customAlert(context, AlertType.error, "ATENÇÃO", _resultado);
+      simpleCustomAlert(context, AlertType.error, "ATENÇÃO", _resultado);
     }
     else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
   }
@@ -127,7 +127,7 @@ abstract class _RegisterStore with Store{
 
 
     if(_respostaBO  != "Valido"){
-      customAlert(
+      simpleCustomAlert(
           context,
           AlertType.info,
           "ATENÇÃO",
@@ -150,7 +150,7 @@ abstract class _RegisterStore with Store{
     _respostaBO = _validarCadastro.validandoSenhas();
 
     if(_respostaBO  != "Valido"){
-      customAlert(
+      simpleCustomAlert(
           context,
           AlertType.info,
           "ATENÇÃO",

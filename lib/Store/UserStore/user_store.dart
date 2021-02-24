@@ -9,7 +9,7 @@ abstract class _UserStore with Store{
   ConexaoBD _acessoBD = ConexaoBD();
 
   @observable
-  bool loggedUser;
+  bool loggedUser = false;
 
   @action
   bool checkLoggedUser() =>
@@ -23,6 +23,36 @@ abstract class _UserStore with Store{
       logOut = await _acessoBD.deslogarUsuario();
 
   @action
-    Future recuperandoSenha(Usuario usuario) async =>
-        await _acessoBD.esqueciSenha(usuario);
+    Future<String> recuperandoSenha(String email) async =>
+        await _acessoBD.esqueciSenha(email);
+
+  @action
+    Future<Usuario> mudandoEmail(Usuario usuario) async =>
+        await _acessoBD.alterarEmail(usuario);
+
+  @action
+    Future deletandoConta() async {
+      return await _acessoBD.exluirUsuario();
+  }
+
+  @observable
+  String nome = "";
+
+  @observable
+  String email = "";
+
+  @observable
+  String urlImagem = "";
+
+  @action
+  Future recuperandoDadosUsuario() async {
+    if(loggedUser){
+      Usuario usuario = Usuario();
+      usuario = await _acessoBD.recuperarDadosUsuario();
+
+      nome = usuario.nome;
+      email = usuario.email;
+      urlImagem = usuario.urlImage;
+    }
+  }
 }

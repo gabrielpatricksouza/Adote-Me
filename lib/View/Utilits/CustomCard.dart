@@ -8,11 +8,12 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 230,
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      height: 210,
+      margin: EdgeInsets.symmetric(horizontal: 30),
       child: Row(
         children: [
           Expanded(
+            flex: 2,
             child: Padding(
               padding: const EdgeInsets.only(top: 35),
               child: Stack(
@@ -48,6 +49,7 @@ class CustomCard extends StatelessWidget {
             ),
           ),
           Expanded(
+            flex: 2,
               child: Container(
                 margin: EdgeInsets.only(top: 60, bottom: 20),
                 decoration: BoxDecoration(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 // ignore: missing_return
-Future<bool> customAlert(
+Future<bool> simpleCustomAlert(
     context,
     AlertType alertType,
     String title,

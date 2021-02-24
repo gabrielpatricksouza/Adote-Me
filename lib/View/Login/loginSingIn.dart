@@ -1,6 +1,6 @@
 import 'package:adote_me/Animacoes/FadeAnimation.dart';
 import 'package:adote_me/Controller/C_Login/controller_login.dart';
-import 'package:adote_me/View/Alert/RecuperarSenhaAlert.dart';
+import 'package:adote_me/View/Alerts/RecuperarSenhaAlert.dart';
 import 'package:adote_me/View/Home/configuration.dart';
 import 'package:adote_me/View/Widgets/CustomAnimatedButton.dart';
 import 'package:adote_me/View/Widgets/CustomCircleAvatar.dart';
@@ -198,7 +198,7 @@ class SingIn extends StatelessWidget {
                           ),
                           ),
                         ),
-                        // SizedBox(height: 20),
+                        SizedBox(height: 10),
                       ],
                     ),
                   ),
