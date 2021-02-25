@@ -1,11 +1,12 @@
 import 'package:adote_me/View/About/aboutScreen.dart';
+import 'package:adote_me/View/Donation/donatioScreen.dart';
 import 'package:adote_me/View/Home/homeScreen.dart';
 import 'package:bloc/bloc.dart';
 
 enum NavigationEvents {
   HomeClickedEvent,
   AboutClickedEvent,
-  // UtilityClickedEvent
+  DonationClickedEvent
 }
 
 abstract class NavigationStates {}
@@ -33,10 +34,10 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
           onMenuTap: onMenuTap,
         );
         break;
-      // case NavigationEvents.UtilityClickedEvent:
-      //   yield UtilityBillsPage(
-      //     onMenuTap: onMenuTap,
-      //   );
+      case NavigationEvents.DonationClickedEvent:
+        yield DonationPage(
+          onMenuTap: onMenuTap,
+        );
         break;
     }
   }

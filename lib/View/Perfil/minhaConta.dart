@@ -10,6 +10,7 @@ class MinhaConta extends StatelessWidget {
   MinhaConta(this.dados);
 
   final _controllerPerfil = ControllerPerfil();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

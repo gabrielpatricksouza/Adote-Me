@@ -82,6 +82,7 @@ class SingUp extends StatelessWidget {
                                     InputCustomizado(
                                       icon: Icons.person,
                                       hintText: "Nome",
+                                      fillColor:  Color(0xffCAE0E0),
                                       keyboardType: TextInputType.text,
                                       controller: _controllerLogin
                                           .registerStore.nomeController,
@@ -94,6 +95,7 @@ class SingUp extends StatelessWidget {
                                     InputCustomizado(
                                       icon: Icons.mail,
                                       hintText: "E-mail",
+                                      fillColor:  Color(0xffCAE0E0),
                                       keyboardType: TextInputType.emailAddress,
                                       controller: _controllerLogin
                                           .registerStore.emailController,
@@ -105,6 +107,7 @@ class SingUp extends StatelessWidget {
                                 InputCustomizado(
                                   icon: Icons.lock,
                                   hintText: "Senha",
+                                  fillColor:  Color(0xffCAE0E0),
                                   suffixIcon: GestureDetector(
                                     onTap: _controllerLogin
                                         .registerStore.boolVisualizar,
@@ -126,6 +129,7 @@ class SingUp extends StatelessWidget {
                                 InputCustomizado(
                                   icon: Icons.lock,
                                   hintText: "Confirmar Senha",
+                                  fillColor:  Color(0xffCAE0E0),
                                   suffixIcon: GestureDetector(
                                     onTap: _controllerLogin
                                         .registerStore.boolVisualizar2,

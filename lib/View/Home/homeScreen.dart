@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget with NavigationStates {
 
   HomeScreen({Key key, this.onMenuTap}) : super(key: key);
 
-  final controllerHome = ControllerHome();
+  final _controllerHome = ControllerHome();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget with NavigationStates {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
               Radius.circular(
-                  controllerHome.homeStore.isDrawerOpen ? 20 : 0)
+                  _controllerHome.homeStore.isDrawerOpen ? 20 : 0)
           ),
           color: Color(0xffd7ecec),
         ),
@@ -35,24 +35,27 @@ class HomeScreen extends StatelessWidget with NavigationStates {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      controllerHome.homeStore.isDrawerOpen
+                      _controllerHome.homeStore.isDrawerOpen
                           ? IconButton(
                         icon: Icon(Icons.arrow_back_ios),
                         onPressed: (){
                           onMenuTap();
-                          controllerHome.homeStore.menuOff();
+                          _controllerHome.homeStore.menuOff();
                         },
                       )
                           : IconButton(
                           icon: Icon(Icons.menu, size: 30,),
                           onPressed: (){
                             onMenuTap();
-                            controllerHome.homeStore.menuOn();
+                            _controllerHome.homeStore.menuOn();
                           }
                       ),
                       Image.asset("assets/images/logoSmall.png", width: 80,),
 
-                      Icon(Icons.search, size: 30,)
+                      IconButton(
+                          icon: Icon(Icons.search, size: 30,),
+                          onPressed: (){}
+                          )
                   ],
                 ),
               ),

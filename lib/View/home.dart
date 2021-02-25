@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:adote_me/View/Home/homeDrawer.dart';
 
 import 'About/aboutScreen.dart';
+import 'Donation/donatioScreen.dart';
 import 'Home/dashboard.dart';
 
 final Color backgroundColor = primaryGreen;
@@ -17,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   bool isCollapsed = true;
   double screenWidth, screenHeight;
-  final Duration duration = const Duration(milliseconds: 300);
+  final Duration duration = const Duration(milliseconds: 350);
   AnimationController _controller;
   Animation<double> _scaleAnimation;
   Animation<double> _menuScaleAnimation;
@@ -66,6 +67,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     screenWidth = size.width;
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: backgroundColor,
       body: BlocProvider<NavigationBloc>(
         create: (context) => NavigationBloc(onMenuTap: onMenuTap),
@@ -102,9 +104,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     if (navigationState is HomePage) {
       return 0;
     }
-    // else if (navigationState is AboutPage) {
-    //   return 1;
-    // }
+    else if (navigationState is DonationPage) {
+      return 1;
+    }
     else if (navigationState is AboutPage) {
       return 4;
     }

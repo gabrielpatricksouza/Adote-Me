@@ -60,7 +60,7 @@ class _ScreenDetailsState extends State<ScreenDetails> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 75, bottom: 120),
+                      padding: const EdgeInsets.only(top: 70, bottom: 125),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
 
@@ -108,7 +108,7 @@ class _ScreenDetailsState extends State<ScreenDetails> {
           Align(
             alignment: Alignment.center,
             child: Container(
-              height: 100,
+              height: 80,
               width: double.maxFinite,
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(

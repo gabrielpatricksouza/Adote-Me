@@ -9,6 +9,7 @@ class InputCustomizado extends StatelessWidget {
   final String labelText;
   final String prefix;
   final String suffix;
+  final Color fillColor;
   final TextInputType keyboardType;
   final TextStyle labelStyle;
   final TextStyle hintStyle;
@@ -25,6 +26,7 @@ class InputCustomizado extends StatelessWidget {
   InputCustomizado({
     this.controller,
     this.hint,
+    this.fillColor,
     this.hintText,
     this.obscure = false,
     this.autofocus = false,
@@ -64,7 +66,7 @@ class InputCustomizado extends StatelessWidget {
           ),
           suffixIcon: suffixIcon,
           contentPadding: suffixIcon == null
-              ? EdgeInsets.fromLTRB(24, 18, 24, 18)
+              ? EdgeInsets.fromLTRB(18, 18, 12, 18)
               : EdgeInsets.fromLTRB(0, 18, 0, 18),
 
           labelStyle: this.labelStyle,
@@ -75,13 +77,18 @@ class InputCustomizado extends StatelessWidget {
           suffixText: this.suffix,
           suffixStyle: this.suffixStyle,
           filled: true,
-          fillColor: Color(0xffCAE0E0),
+          fillColor: fillColor, //CAE0E0
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25),
           ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(25)),
-          borderSide: BorderSide(width: 1,color: Color(0xff1a1919),),
+          borderSide: BorderSide(width: 1.18,color: Color(0xff1a1919),),
+        ),
+
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          borderSide: BorderSide(width: 1.2,color: Color(0xff1a1919)),
         ),
       ),
       cursorColor: Theme.of(context).primaryColor,

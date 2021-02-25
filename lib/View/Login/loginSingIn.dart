@@ -16,10 +16,8 @@ class SingIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        //qualquer toque no fora do teclado, fecha o teclado;
-        FocusScope.of(context).unfocus();
-      },
+      onTap: () => FocusScope.of(context).unfocus(),
+
       child: Scaffold(
         body: Observer(
           builder: (_) =>  Stack(
@@ -76,7 +74,8 @@ class SingIn extends StatelessWidget {
                           InputCustomizado(
                             icon: Icons.mail,
                             labelText: "E-mail",
-                            keyboardType: TextInputType.text,
+                            fillColor:  Color(0xffCAE0E0),
+                            keyboardType: TextInputType.emailAddress,
                             controller: _controllerLogin.loginStore.emailController,
                             onChanged: _controllerLogin.loginStore.setEmail,
                           )
@@ -88,6 +87,7 @@ class SingIn extends StatelessWidget {
                               builder: (_) => InputCustomizado(
                                 icon: Icons.lock,
                                 labelText: "Senha",
+                                fillColor:  Color(0xffCAE0E0),
                                 suffixIcon: GestureDetector(
                                   onTap: _controllerLogin.loginStore.boolVisualizar,
                                   child:  Icon(_controllerLogin.loginStore.visualizar

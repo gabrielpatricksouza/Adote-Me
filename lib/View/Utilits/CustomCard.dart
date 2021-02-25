@@ -20,26 +20,32 @@ class CustomCard extends StatelessWidget {
                 children: [
                   Hero(
                     tag: 1,
-                    child:ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Image.network(
-                            foto,
-                            fit: BoxFit.cover,
-                            loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
+                    child:Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(20.0))
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Image.network(
+                              foto,
+                              fit: BoxFit.cover,
+                              loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return Center(
 
-                                child: CircularProgressIndicator(
-                                  valueColor: new AlwaysStoppedAnimation<Color>(Color(0xff416d6d)),
-                                  backgroundColor: Color(0xff5C9999),
-                                  value: loadingProgress.expectedTotalBytes != null ?
-                                  loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
-                                      : null,
-                                ),
-                              );
-                            }
+                                  child: CircularProgressIndicator(
+                                    valueColor: new AlwaysStoppedAnimation<Color>(Color(0xff416d6d)),
+                                    backgroundColor: Color(0xff5C9999),
+                                    value: loadingProgress.expectedTotalBytes != null ?
+                                    loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                                        : null,
+                                  ),
+                                );
+                              }
+                          ),
                         ),
                       ),
                     ),

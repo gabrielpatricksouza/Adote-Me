@@ -93,7 +93,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     GestureDetector(
                       onTap: () {
                         if(_controllerDrawer.userStore.loggedUser) {
-                            // BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.MessagesClickedEvent);
+                            BlocProvider.of<NavigationBloc>(context).add(NavigationEvents.DonationClickedEvent);
                             widget.onMenuItemClicked();
                           }
                          else Navigator.pushNamed(context, "/login");
@@ -171,7 +171,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               context: context,
                               builder: (_) => customShowDialog(
                                   context,
-                                  "Você realmente quer sair?",
+                                  "Sair do Adote-me?",
                                   "/home",
                                   _controllerDrawer.userStore.logOutUser
                               )
@@ -186,7 +186,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              'Sair',
+                              'Desconectar',
                               style: TextStyle(
                                   fontSize: 22,
                                   color: Colors.white, fontWeight: FontWeight.normal
