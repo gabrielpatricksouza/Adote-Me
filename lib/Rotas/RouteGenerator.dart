@@ -33,8 +33,6 @@ class RouteGenerator {
       case "/minhaConta":
         return MaterialPageRoute(builder: (_)=>MinhaConta(args));
 
-
-
       default:
         _erroRota();
     }

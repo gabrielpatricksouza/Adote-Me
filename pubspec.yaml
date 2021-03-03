@@ -44,6 +44,12 @@ dependencies:
     #Biblioteca de tipos de carregamentos
   flutter_spinkit: ^4.1.2
 
+    #Biblioteca para dropdown
+  custom_dropdown: ^0.0.2
+
+    #Biblioteca para pegar fotos pela camera ou na galeria
+  image_picker: ^0.6.7+22
+
 
     #Bibliotecas para Firebase
   firebase_core: ^0.7.0    #Recursos básicos

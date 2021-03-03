@@ -52,9 +52,9 @@ abstract class _LoginStore with Store{
 
   @action
   Future signInWithEmailAndPassword(context) async {
-    carregando = true;
 
     if(finalizar){
+      carregando = true;
 
       _usuario.email = email.trim();
       _usuario.senha = senha.trim();

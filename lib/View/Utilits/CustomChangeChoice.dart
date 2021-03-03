@@ -6,6 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomChangeChoice extends StatefulWidget {
 
+  final Function function;
+  CustomChangeChoice({this.function});
+
   @override
   _CustomChangeChoiceState createState() => _CustomChangeChoiceState();
 }
@@ -25,7 +28,10 @@ class _CustomChangeChoiceState extends State<CustomChangeChoice> {
           children: <Widget>[
             Expanded(
               child: GestureDetector(
-                onTap: () => _controllerDonation.donationStore.changeValueSex(0),
+                onTap: () {
+                  _controllerDonation.donationStore.changeValueSex(0);
+                  widget.function(0);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       color: _controllerDonation.donationStore.valueSex == 0
@@ -64,7 +70,10 @@ class _CustomChangeChoiceState extends State<CustomChangeChoice> {
 
             Expanded(
               child: GestureDetector(
-                onTap: () => _controllerDonation.donationStore.changeValueSex(1),
+                onTap: () {
+                   _controllerDonation.donationStore.changeValueSex(1);
+                   widget.function(1);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       color: _controllerDonation.donationStore.valueSex == 1 ? Color(0xff00a4ad) : Colors.transparent,

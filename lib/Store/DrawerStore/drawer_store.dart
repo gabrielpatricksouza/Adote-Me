@@ -9,7 +9,7 @@ abstract class _DrawerStore with Store{
   int numWidget = 0;
 
   @action
-  int setNumWidget (int num) {
+  void setNumWidget (int num) {
     numWidget = num;
     print("object");
     print(numWidget);

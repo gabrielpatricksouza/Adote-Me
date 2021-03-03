@@ -27,7 +27,7 @@ mixin _$DrawerStore on _DrawerStore, Store {
   final _$_DrawerStoreActionController = ActionController(name: '_DrawerStore');
 
   @override
-  int setNumWidget(int num) {
+  void setNumWidget(int num) {
     final _$actionInfo = _$_DrawerStoreActionController.startAction(
         name: '_DrawerStore.setNumWidget');
     try {

@@ -45,84 +45,89 @@ class _CustomSwitchState extends State<CustomSwitch>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 65,
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-          color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(25)),
-        border: Border.all(color: Color(0xff1a1919),width: 1.1)
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 4,
-            child: Text(widget.text,
-              style: TextStyle(
-                color: primaryGreen,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
+    return Material(
+      borderRadius: BorderRadius.circular(25),
+      elevation: 5.0,
+      shadowColor: Colors.grey[350],
+      child: Container(
+        height: 65,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+            color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          border: Border.all(color: Colors.white,width: 1.1)
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 4,
+              child: Text(widget.text,
+                style: TextStyle(
+                  color: primaryGreen,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: AnimatedBuilder(
-              animation: _controllerDonation.donationStore.animationController,
-              builder: (context, child) {
-                return Center(
-                  child: Observer(
-                    builder:(_) => Container(
-                      width: 60,
-                      height: 30,
-                      padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
-                      decoration: BoxDecoration(
-                          color: _controllerDonation.donationStore.isChecked
-                              ? Colors.green : Colors.red,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(40),
-                          ),
-                      ),
-                      child: Stack(
-                        children: <Widget>[
-                          Align(
-                            alignment: _controllerDonation.donationStore.animation.value,
-                            child: GestureDetector(
-                              onTap: () {
-                                  if (_controllerDonation
-                                        .donationStore.animationController
-                                        .isCompleted){
+            Expanded(
+              flex: 1,
+              child: AnimatedBuilder(
+                animation: _controllerDonation.donationStore.animationController,
+                builder: (context, child) {
+                  return Center(
+                    child: Observer(
+                      builder:(_) => Container(
+                        width: 60,
+                        height: 30,
+                        padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
+                        decoration: BoxDecoration(
+                            color: _controllerDonation.donationStore.isChecked
+                                ? Colors.green : Colors.red,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(40),
+                            ),
+                        ),
+                        child: Stack(
+                          children: <Widget>[
+                            Align(
+                              alignment: _controllerDonation.donationStore.animation.value,
+                              child: GestureDetector(
+                                onTap: () {
+                                    if (_controllerDonation
+                                          .donationStore.animationController
+                                          .isCompleted){
 
-                                    _controllerDonation.donationStore
-                                        .animationController.reverse();
-                                  } else {
-                                    _controllerDonation.donationStore
-                                        .animationController.forward();
-                                  }
-                                  _controllerDonation.donationStore.changeChecked();
+                                      _controllerDonation.donationStore
+                                          .animationController.reverse();
+                                    } else {
+                                      _controllerDonation.donationStore
+                                          .animationController.forward();
+                                    }
+                                    _controllerDonation.donationStore.changeChecked();
 
-                                  widget.function(_controllerDonation.donationStore.isChecked);
-                              },
-                              child: Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
+                                    widget.function(_controllerDonation.donationStore.isChecked);
+                                },
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

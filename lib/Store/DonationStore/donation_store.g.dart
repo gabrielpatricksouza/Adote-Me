@@ -9,6 +9,14 @@ part of 'donation_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$DonationStore on _DonationStore, Store {
+  Computed<bool> _$firstValuesComputed;
+
+  @override
+  bool get firstValues =>
+      (_$firstValuesComputed ??= Computed<bool>(() => super.firstValues,
+              name: '_DonationStore.firstValues'))
+          .value;
+
   final _$nomePetAtom = Atom(name: '_DonationStore.nomePet');
 
   @override
@@ -115,6 +123,45 @@ mixin _$DonationStore on _DonationStore, Store {
     });
   }
 
+  final _$checkboxValueAtom = Atom(name: '_DonationStore.checkboxValue');
+
+  @override
+  int get checkboxValue {
+    _$checkboxValueAtom.reportRead();
+    return super.checkboxValue;
+  }
+
+  @override
+  set checkboxValue(int value) {
+    _$checkboxValueAtom.reportWrite(value, super.checkboxValue, () {
+      super.checkboxValue = value;
+    });
+  }
+
+  final _$listaImagensAtom = Atom(name: '_DonationStore.listaImagens');
+
+  @override
+  List<File> get listaImagens {
+    _$listaImagensAtom.reportRead();
+    return super.listaImagens;
+  }
+
+  @override
+  set listaImagens(List<File> value) {
+    _$listaImagensAtom.reportWrite(value, super.listaImagens, () {
+      super.listaImagens = value;
+    });
+  }
+
+  final _$selecionarImagemGaleriaAsyncAction =
+      AsyncAction('_DonationStore.selecionarImagemGaleria');
+
+  @override
+  Future selecionarImagemGaleria() {
+    return _$selecionarImagemGaleriaAsyncAction
+        .run(() => super.selecionarImagemGaleria());
+  }
+
   final _$_DonationStoreActionController =
       ActionController(name: '_DonationStore');
 
@@ -174,6 +221,28 @@ mixin _$DonationStore on _DonationStore, Store {
   }
 
   @override
+  dynamic changeCheckBox(int valueBox) {
+    final _$actionInfo = _$_DonationStoreActionController.startAction(
+        name: '_DonationStore.changeCheckBox');
+    try {
+      return super.changeCheckBox(valueBox);
+    } finally {
+      _$_DonationStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic cleanVariables() {
+    final _$actionInfo = _$_DonationStoreActionController.startAction(
+        name: '_DonationStore.cleanVariables');
+    try {
+      return super.cleanVariables();
+    } finally {
+      _$_DonationStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 nomePet: ${nomePet},
@@ -182,7 +251,10 @@ animation: ${animation},
 animationController: ${animationController},
 isChecked: ${isChecked},
 petChecked: ${petChecked},
-valueSex: ${valueSex}
+valueSex: ${valueSex},
+checkboxValue: ${checkboxValue},
+listaImagens: ${listaImagens},
+firstValues: ${firstValues}
     ''';
   }
 }

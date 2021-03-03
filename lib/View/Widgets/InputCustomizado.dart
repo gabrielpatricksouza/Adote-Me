@@ -10,6 +10,8 @@ class InputCustomizado extends StatelessWidget {
   final String prefix;
   final String suffix;
   final Color fillColor;
+  final Color enableColor;
+  final Color shadowColor;
   final TextInputType keyboardType;
   final TextStyle labelStyle;
   final TextStyle hintStyle;
@@ -27,6 +29,8 @@ class InputCustomizado extends StatelessWidget {
     this.controller,
     this.hint,
     this.fillColor,
+    this.shadowColor = const Color(0xffffff),
+    this.enableColor = const Color(0xff1a1919),
     this.hintText,
     this.obscure = false,
     this.autofocus = false,
@@ -47,51 +51,56 @@ class InputCustomizado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscure,
-      autofocus: autofocus,
-      inputFormatters:inputFormatters,
-      validator: validator,
-      onSaved: onSaved,
-      onChanged: onChanged,
-      keyboardType: keyboardType,
-      style: TextStyle(fontSize: 20),
-      textAlign: TextAlign.start,
-      decoration: InputDecoration(
+    return Material(
+      borderRadius: BorderRadius.circular(25),
+      elevation: 5.0,
+      shadowColor:shadowColor, // Colors.grey[350]
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscure,
+        autofocus: autofocus,
+        inputFormatters:inputFormatters,
+        validator: validator,
+        onSaved: onSaved,
+        onChanged: onChanged,
+        keyboardType: keyboardType,
+        style: TextStyle(fontSize: 20),
+        textAlign: TextAlign.start,
+        decoration: InputDecoration(
 
-          prefixIcon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Icon(this.icon)
+            prefixIcon: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Icon(this.icon)
+            ),
+            suffixIcon: suffixIcon,
+            contentPadding: suffixIcon == null
+                ? EdgeInsets.fromLTRB(18, 18, 12, 18)
+                : EdgeInsets.fromLTRB(0, 18, 0, 18),
+
+            labelStyle: this.labelStyle,
+            labelText: this.labelText,
+            hintStyle: this.hintStyle,
+            hintText: this.hintText,
+            prefixText: this.prefix,
+            suffixText: this.suffix,
+            suffixStyle: this.suffixStyle,
+            filled: true,
+            fillColor: fillColor, //CAE0E0
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+            ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            borderSide: BorderSide(width: 1.18,color: Color(0xff1a1919),),
           ),
-          suffixIcon: suffixIcon,
-          contentPadding: suffixIcon == null
-              ? EdgeInsets.fromLTRB(18, 18, 12, 18)
-              : EdgeInsets.fromLTRB(0, 18, 0, 18),
 
-          labelStyle: this.labelStyle,
-          labelText: this.labelText,
-          hintStyle: this.hintStyle,
-          hintText: this.hintText,
-          prefixText: this.prefix,
-          suffixText: this.suffix,
-          suffixStyle: this.suffixStyle,
-          filled: true,
-          fillColor: fillColor, //CAE0E0
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            borderSide: BorderSide(width: 1.2,color: enableColor), //Color(0xff1a1919)
           ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25)),
-          borderSide: BorderSide(width: 1.18,color: Color(0xff1a1919),),
         ),
-
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25)),
-          borderSide: BorderSide(width: 1.2,color: Color(0xff1a1919)),
-        ),
+        cursorColor: Theme.of(context).primaryColor,
       ),
-      cursorColor: Theme.of(context).primaryColor,
     );
   }
 }
