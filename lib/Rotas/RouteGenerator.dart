@@ -2,7 +2,7 @@ import 'package:adote_me/View/Login/login.dart';
 import 'package:adote_me/View/Login/loginSingIn.dart';
 import 'package:adote_me/View/Login/loginSingUp.dart';
 import 'package:adote_me/View/Perfil/minhaConta.dart';
-import 'package:adote_me/View/home.dart';
+import 'package:adote_me/View/homeAlt.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

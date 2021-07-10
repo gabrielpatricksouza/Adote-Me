@@ -75,9 +75,10 @@ abstract class _DonationStore with Store{
   selecionarImagemGaleria() async {
 
     // ignore: deprecated_member_use
-    File imagemSelecionada = await ImagePicker.pickImage(source: ImageSource.gallery);
+    PickedFile imagemSelecionada = await ImagePicker.platform.pickImage(source: ImageSource.gallery);
+    // File imagemSelecionada = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    if( imagemSelecionada != null )
-      listaImagens.add( imagemSelecionada );
+    // if( imagemSelecionada != null )
+      // listaImagens.add( imagemSelecionada );
   }
 }

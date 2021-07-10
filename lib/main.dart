@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: [
         const Locale('pt', 'BR'), // portugues
-
       ],
       debugShowCheckedModeBanner: false,
       home: splachScreen(),

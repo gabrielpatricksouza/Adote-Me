@@ -14,9 +14,8 @@ abstract class NavigationStates {}
 class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   final Function onMenuTap;
 
-  NavigationBloc({this.onMenuTap});
+  NavigationBloc({this.onMenuTap}) : super(HomeScreen());
 
-  @override
   NavigationStates get initialState => HomeScreen(
     onMenuTap: onMenuTap,
   );
