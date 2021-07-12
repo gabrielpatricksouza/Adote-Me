@@ -9,9 +9,6 @@ class DoacaoFirebase{
 
   Future cadastrarDadosPet(Animal animal) async {
     User user = _auth.currentUser!;
-    CollectionReference resultID = db.collection("doacao");
-
-    animal.idPet = resultID.doc().id;
     animal.idDono = user.uid;
 
     await db.collection("doacao").doc().set(animal.toMap());

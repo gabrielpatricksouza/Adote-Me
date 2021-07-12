@@ -25,7 +25,7 @@ class InputCustomizado extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   // final Function(String) validator;
   // final Function(String) onSaved;
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
 
   InputCustomizado({
     required this.controller,
@@ -42,7 +42,7 @@ class InputCustomizado extends StatelessWidget {
     this.suffixStyle,
     this.labelStyle,
     // this.onSaved,
-    required this.onChanged,
+    this.onChanged,
     this.prefix      = "",
     this.suffix      = "",
     this.labelText   = "",

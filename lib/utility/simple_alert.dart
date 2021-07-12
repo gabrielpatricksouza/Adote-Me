@@ -33,7 +33,7 @@ simpleCustomAlert(
         ),
         onPressed: () => Navigator.pop(context),
         width: 120,
-        color:  Color(0xff1F1F30)
+        color:  Color(0xff198d97)
       )
     ],
   ).show();

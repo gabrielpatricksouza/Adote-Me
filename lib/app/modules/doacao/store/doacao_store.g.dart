@@ -9,36 +9,6 @@ part of 'doacao_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$DoacaoStore on _DoacaoStore, Store {
-  final _$nomePetAtom = Atom(name: '_DoacaoStore.nomePet');
-
-  @override
-  String get nomePet {
-    _$nomePetAtom.reportRead();
-    return super.nomePet;
-  }
-
-  @override
-  set nomePet(String value) {
-    _$nomePetAtom.reportWrite(value, super.nomePet, () {
-      super.nomePet = value;
-    });
-  }
-
-  final _$racaAtom = Atom(name: '_DoacaoStore.raca');
-
-  @override
-  String get raca {
-    _$racaAtom.reportRead();
-    return super.raca;
-  }
-
-  @override
-  set raca(String value) {
-    _$racaAtom.reportWrite(value, super.raca, () {
-      super.raca = value;
-    });
-  }
-
   final _$animationAtom = Atom(name: '_DoacaoStore.animation');
 
   @override
@@ -145,33 +115,33 @@ mixin _$DoacaoStore on _DoacaoStore, Store {
     });
   }
 
-  final _$checkboxValueAtom = Atom(name: '_DoacaoStore.checkboxValue');
+  final _$especiePetAtom = Atom(name: '_DoacaoStore.especiePet');
 
   @override
-  String? get checkboxValue {
-    _$checkboxValueAtom.reportRead();
-    return super.checkboxValue;
+  String? get especiePet {
+    _$especiePetAtom.reportRead();
+    return super.especiePet;
   }
 
   @override
-  set checkboxValue(String? value) {
-    _$checkboxValueAtom.reportWrite(value, super.checkboxValue, () {
-      super.checkboxValue = value;
+  set especiePet(String? value) {
+    _$especiePetAtom.reportWrite(value, super.especiePet, () {
+      super.especiePet = value;
     });
   }
 
-  final _$firstValuesAtom = Atom(name: '_DoacaoStore.firstValues');
+  final _$portePetAtom = Atom(name: '_DoacaoStore.portePet');
 
   @override
-  bool get firstValues {
-    _$firstValuesAtom.reportRead();
-    return super.firstValues;
+  String? get portePet {
+    _$portePetAtom.reportRead();
+    return super.portePet;
   }
 
   @override
-  set firstValues(bool value) {
-    _$firstValuesAtom.reportWrite(value, super.firstValues, () {
-      super.firstValues = value;
+  set portePet(String? value) {
+    _$portePetAtom.reportWrite(value, super.portePet, () {
+      super.portePet = value;
     });
   }
 
@@ -190,38 +160,38 @@ mixin _$DoacaoStore on _DoacaoStore, Store {
     });
   }
 
+  final _$carregandoAtom = Atom(name: '_DoacaoStore.carregando');
+
+  @override
+  bool get carregando {
+    _$carregandoAtom.reportRead();
+    return super.carregando;
+  }
+
+  @override
+  set carregando(bool value) {
+    _$carregandoAtom.reportWrite(value, super.carregando, () {
+      super.carregando = value;
+    });
+  }
+
   final _$selecionarImagemGaleriaAsyncAction =
       AsyncAction('_DoacaoStore.selecionarImagemGaleria');
 
   @override
-  Future selecionarImagemGaleria() {
+  Future<dynamic> selecionarImagemGaleria() {
     return _$selecionarImagemGaleriaAsyncAction
         .run(() => super.selecionarImagemGaleria());
   }
 
+  final _$buscarCepAsyncAction = AsyncAction('_DoacaoStore.buscarCep');
+
+  @override
+  Future buscarCep(String cep, dynamic context) {
+    return _$buscarCepAsyncAction.run(() => super.buscarCep(cep, context));
+  }
+
   final _$_DoacaoStoreActionController = ActionController(name: '_DoacaoStore');
-
-  @override
-  void setNomePet(String text) {
-    final _$actionInfo = _$_DoacaoStoreActionController.startAction(
-        name: '_DoacaoStore.setNomePet');
-    try {
-      return super.setNomePet(text);
-    } finally {
-      _$_DoacaoStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setRaca(String text) {
-    final _$actionInfo = _$_DoacaoStoreActionController.startAction(
-        name: '_DoacaoStore.setRaca');
-    try {
-      return super.setRaca(text);
-    } finally {
-      _$_DoacaoStoreActionController.endAction(_$actionInfo);
-    }
-  }
 
   @override
   dynamic selecionarVacinado() {
@@ -268,33 +238,33 @@ mixin _$DoacaoStore on _DoacaoStore, Store {
   }
 
   @override
-  dynamic changeValueSex(int value) {
+  dynamic mudarValorSexo(int value) {
     final _$actionInfo = _$_DoacaoStoreActionController.startAction(
-        name: '_DoacaoStore.changeValueSex');
+        name: '_DoacaoStore.mudarValorSexo');
     try {
-      return super.changeValueSex(value);
+      return super.mudarValorSexo(value);
     } finally {
       _$_DoacaoStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic changeCheckBox(String valueBox) {
+  dynamic mudarEspeciePet(String valueBox) {
     final _$actionInfo = _$_DoacaoStoreActionController.startAction(
-        name: '_DoacaoStore.changeCheckBox');
+        name: '_DoacaoStore.mudarEspeciePet');
     try {
-      return super.changeCheckBox(valueBox);
+      return super.mudarEspeciePet(valueBox);
     } finally {
       _$_DoacaoStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic mudarPagina() {
+  dynamic mudarPortePet(String valueBox) {
     final _$actionInfo = _$_DoacaoStoreActionController.startAction(
-        name: '_DoacaoStore.mudarPagina');
+        name: '_DoacaoStore.mudarPortePet');
     try {
-      return super.mudarPagina();
+      return super.mudarPortePet(valueBox);
     } finally {
       _$_DoacaoStoreActionController.endAction(_$actionInfo);
     }
@@ -303,8 +273,6 @@ mixin _$DoacaoStore on _DoacaoStore, Store {
   @override
   String toString() {
     return '''
-nomePet: ${nomePet},
-raca: ${raca},
 animation: ${animation},
 animationController: ${animationController},
 vacinado: ${vacinado},
@@ -312,9 +280,10 @@ cadastrado: ${cadastrado},
 chipado: ${chipado},
 vermifugado: ${vermifugado},
 valueSex: ${valueSex},
-checkboxValue: ${checkboxValue},
-firstValues: ${firstValues},
-listaImagens: ${listaImagens}
+especiePet: ${especiePet},
+portePet: ${portePet},
+listaImagens: ${listaImagens},
+carregando: ${carregando}
     ''';
   }
 }
