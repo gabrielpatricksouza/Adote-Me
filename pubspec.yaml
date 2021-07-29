@@ -90,8 +90,8 @@ dependencies:
   cached_network_image: ^3.1.0
 
     #Bibliotecas para enviar para o wpp
-#  url_launcher: ^6.0.9
-#  whatsapp_unilink: ^2.0.0
+  url_launcher: ^6.0.9
+  whatsapp_unilink: ^2.0.0
 
 
     #Bibliotecas para Firebase

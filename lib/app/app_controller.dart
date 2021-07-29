@@ -29,9 +29,10 @@ abstract class _AppControllerBase with Store {
     bool response = _acessoBDGlobal.checkCurrentUser();
     if(response){
       usuario = await _acessoBDGlobal.recuperarDadosUsuario();
-    }else{
-      await _acessoBDGlobal.logarAnonimamente();
     }
+    // else{
+    //   await _acessoBDGlobal.logarAnonimamente();
+    // }
   }
 
   @action

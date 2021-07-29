@@ -6,8 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-// import 'package:url_launcher/url_launcher.dart';
-// import 'package:whatsapp_unilink/whatsapp_unilink.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 part 'home_store.g.dart';
 
 class HomeStore = _HomeStore with _$HomeStore;
@@ -73,14 +73,14 @@ abstract class _HomeStore with Store{
       );
 
     }else{
-      // final link = WhatsAppUnilink(
-      //   phoneNumber: numWpp,
-      //   text: appController.usuario.nome.isEmpty
-      //       ? "Olá! Venho do app Adote-me, e adoraria adotar o(a) $nomePet"
-      //       : "Olá! Meu nome é ${appController.usuario.nome}. "
-      //         "Venho do app Adote-me, e adoraria adotar o(a) $nomePet",
-      // );
-      // await launch('$link');
+      final link = WhatsAppUnilink(
+        phoneNumber: numWpp,
+        text: appController.usuario.nome.isEmpty
+            ? "Olá! Venho do app Adote-me, e adoraria adotar o(a) $nomePet"
+            : "Olá! Meu nome é ${appController.usuario.nome}. "
+              "Venho do app Adote-me, e adoraria adotar o(a) $nomePet",
+      );
+      await launch('$link');
     }
   }
 

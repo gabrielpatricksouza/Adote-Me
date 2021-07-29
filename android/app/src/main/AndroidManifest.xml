@@ -5,16 +5,22 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Allows query of any normal app on the device, regardless of manifest declarations. -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
+    <!-- Url Launcher -->
+
+
     <application
 
         android:requestLegacyExternalStorage="true"
         android:name="io.flutter.app.FlutterApplication"
-        android:label="adote_me"
+        android:label="Adote-me"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
