@@ -29,10 +29,7 @@ class DataBaseGlobal {
 
   bool checkCurrentUser() {
     User? user = _auth.currentUser;
-    return user != null ? true : false;
+    return user == null ? false : !_auth.currentUser!.isAnonymous;
   }
 
-  bool checkCurrentUserAnonymous() {
-    return _auth.currentUser!.isAnonymous;
-  }
 }
