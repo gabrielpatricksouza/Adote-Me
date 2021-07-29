@@ -29,7 +29,7 @@ List<String> namePages = [
 ];
 
 List<BoxShadow> shadowList = [
-  BoxShadow(color: Colors.grey.shade300, blurRadius: 30, offset: Offset(0, 10))
+  BoxShadow(color: Colors.grey, blurRadius: 30, offset: Offset(0, 10))
 ];
 
 List<Map> screenItems=[

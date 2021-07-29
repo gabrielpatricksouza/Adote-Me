@@ -1,7 +1,10 @@
 import 'package:adote_me/app/app_controller.dart';
+import 'package:adote_me/app/modules/home/store/home_store.dart';
 import 'package:adote_me/app/modules/template/store/template_store.dart';
+import 'package:adote_me/app/modules/template/view/filter_screen.dart';
 import 'package:adote_me/constants/constantes.dart';
 import 'package:adote_me/widgets/custom_button_menu.dart';
+import 'package:adote_me/widgets/custom_text_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -25,6 +28,8 @@ class TemplateMenuDrawer extends StatefulWidget {
 }
 
 class _TemplateMenuDrawerState extends State<TemplateMenuDrawer> {
+  final AppController _controllerApp = Modular.get();
+  final HomeStore  _controllerHome = Modular.get();
 
   @override
   Widget build(BuildContext context) {
@@ -38,26 +43,74 @@ class _TemplateMenuDrawerState extends State<TemplateMenuDrawer> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor:  Color(0xffd7ecec),
+            // elevation: 0.0,
             actions: [
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
                       icon: Icon(Icons.menu),
                       onPressed: controller.toggle,
                       iconSize: 27,),
 
-                    Image.asset(
-                      "assets/images/logoSmall.png", width: 80,
+                    if(_controllerApp.index == 0)
+                      ...[
+                    Expanded(
+                      child: Image.asset(
+                        "assets/images/logoSmall.png", width: 80,
+                      ),
                     ),
-
                     IconButton(
-                        iconSize: 27,
-                        icon: Icon(Icons.favorite_border),
-                        onPressed: (){widget.changeFunction(5);}
-                    ),
+                        iconSize: 30,
+                        icon: Icon(Icons.filter_alt_outlined),
+                        onPressed: () async {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return FilterScreen(homeStore: _controllerHome,);
+                              }
+                          );
+                        }
+                     ),
+                    ],
+
+                    if(_controllerApp.index == 1)
+                      Expanded(
+                        child: CustomTextIcon(
+                            text: "Doação",
+                            icon: Icons.favorite_border,
+                            action: (){}
+                        ),
+                      ),
+
+                    if(_controllerApp.index == 2)
+                      Expanded(
+                        child: CustomTextIcon(
+                            text: "Favoritos",
+                            icon: Icons.filter_alt_outlined,
+                            action: (){}
+                        ),
+                      ),
+
+                    if(_controllerApp.index == 3)
+                      Expanded(
+                        child: CustomTextIcon(
+                            text: "Parceiros",
+                            icon: Icons.favorite_border,
+                            action: (){}
+                        ),
+                      ),
+
+                    if(_controllerApp.index == 4)
+                      Expanded(
+                        child: CustomTextIcon(
+                            text: "Sobre",
+                            icon: Icons.favorite_border,
+                            action: (){}
+                        ),
+                      )
                   ],
                 ),
               )

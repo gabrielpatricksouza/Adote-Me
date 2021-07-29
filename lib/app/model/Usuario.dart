@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Usuario {
   String idUsuario = "";
@@ -30,10 +29,10 @@ class Usuario {
 
   factory Usuario.fromMap(Map<dynamic, dynamic> dados) {
     return Usuario(
-      idUsuario: dados['id']       ?? '',
-      nome:      dados['nome']     ?? '',
-      email:     dados['email']    ?? '',
-      urlImage:  dados['urlImage'] ?? '',
+      idUsuario: dados['id']       == null ? '' : dados['id'],
+      nome:      dados['nome']     == null ? '' : dados['nome'],
+      email:     dados['email']    == null ? '' : dados['email'],
+      urlImage:  dados['urlImage'] == null ? '' : dados['urlImage'],
     );
   }
 

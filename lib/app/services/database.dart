@@ -18,8 +18,21 @@ class DataBaseGlobal {
 
 //******************************************************************************
 
+  Future logarAnonimamente() async {
+    var userLogado = _auth.currentUser;
+
+    if(userLogado == null){
+      await _auth.signInAnonymously();
+    }
+  }
+//******************************************************************************
+
   bool checkCurrentUser() {
     User? user = _auth.currentUser;
     return user != null ? true : false;
+  }
+
+  bool checkCurrentUserAnonymous() {
+    return _auth.currentUser!.isAnonymous;
   }
 }

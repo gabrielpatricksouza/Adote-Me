@@ -18,6 +18,7 @@ class DoacaoStore = _DoacaoStore with _$DoacaoStore;
 abstract class _DoacaoStore with Store{
   final nomePetController = TextEditingController();
   final cepPetController = TextEditingController();
+  final wppPetController = TextEditingController();
   final acessoDoacaoFirebase = DoacaoFirebase();
 
 
@@ -76,6 +77,7 @@ abstract class _DoacaoStore with Store{
   Future selecionarImagemGaleria() async {
     ImagePicker _imagePicker = ImagePicker();
 
+    // ignore: deprecated_member_use
     final imagemSelecionada =  await _imagePicker.getImage(source: ImageSource.gallery,);
     if( imagemSelecionada != null ) listaImagens.add( File(imagemSelecionada.path) );
   }
@@ -145,6 +147,7 @@ abstract class _DoacaoStore with Store{
       animal = await _salvarImagens(animal);
 
       animal.nomePet = nomePetController.text;
+      animal.whatsapp = wppPetController.text;
       animal.especiePet = especiePet!;
       animal.portePet = portePet!;
       animal.sexoPet = valueSex == 0 ? "Macho" : "Fêmea";
@@ -168,6 +171,7 @@ abstract class _DoacaoStore with Store{
       );
     }
 
+    carregando = false;
   }
 
   Future<Animal> _salvarImagens(Animal animal) async {
@@ -190,13 +194,15 @@ abstract class _DoacaoStore with Store{
       TaskSnapshot taskSnapshot = await uploadTask;
 
       String urlImagem = await taskSnapshot.ref.getDownloadURL();
-      animal.imagensPet.add(urlImagem);
+      animal.imagensPet = [];
+      animal.imagensPet!.add(urlImagem);
     }
 
     return animal;
   }
 
   _validarCampos(context){
+    print(responseDio);
     if(listaImagens.length == 0){
       simpleCustomAlert(
           context,
@@ -221,6 +227,15 @@ abstract class _DoacaoStore with Store{
           AlertType.info,
           "ATENÇÃO",
           "O nome do pet deve ter mais de dois caracteres."
+      );
+      return false;
+
+    }else if(wppPetController.text.isEmpty){
+      simpleCustomAlert(
+          context,
+          AlertType.info,
+          "ATENÇÃO",
+          "Preencha o número de Whatsapp para prosseguirmos!"
       );
       return false;
 
@@ -278,6 +293,7 @@ abstract class _DoacaoStore with Store{
     listaImagens.clear();
     nomePetController.text = "";
     cepPetController.text = "";
+    wppPetController.text = "";
     valueSex = 3;
     especiePet = null;
     portePet = null;

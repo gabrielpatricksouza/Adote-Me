@@ -58,6 +58,7 @@ class _DoacaoPageState extends ModularState<DoacaoPage, DoacaoStore> {
                             InputCustomizado(
                               icon: Icons.pets,
                               hintText: "Nome do Pet",
+                              hintStyle: TextStyle(color: Colors.grey),
                               fillColor: Colors.white, //Color(0xffd7ecec)
                               shadowColor: Colors.grey[350],
                               enableColor: Colors.white,
@@ -67,8 +68,25 @@ class _DoacaoPageState extends ModularState<DoacaoPage, DoacaoStore> {
                             SizedBox(height: 20),
 
                             InputCustomizado(
+                              icon: Icons.phone_android,
+                              hintText: "Whatsapp",
+                              hintStyle: TextStyle(color: Colors.grey),
+                              fillColor: Colors.white, //Color(0xffd7ecec)
+                              shadowColor: Colors.grey[350],
+                              enableColor: Colors.white,
+                              keyboardType: TextInputType.phone,
+                              controller: controller.wppPetController,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                TelefoneInputFormatter(),
+                              ],
+                            ),
+                            SizedBox(height: 20),
+
+                            InputCustomizado(
                               icon: Icons.explore_outlined,
                               hintText: "CEP",
+                              hintStyle: TextStyle(color: Colors.grey),
                               fillColor: Colors.white, //Color(0xffd7ecec)
                               shadowColor: Colors.grey[350],
                               enableColor: Colors.white,
@@ -128,7 +146,6 @@ class _DoacaoPageState extends ModularState<DoacaoPage, DoacaoStore> {
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 18,
-                                            // backgroundColor: Colors.white,
                                           ),
                                           value: controller.portePet,
                                           items: [

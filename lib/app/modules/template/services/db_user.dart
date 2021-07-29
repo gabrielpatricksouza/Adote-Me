@@ -1,4 +1,3 @@
-import 'package:adote_me/app/Model/Usuario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -23,6 +22,10 @@ class ConexaoBDTemplate {
   bool checkCurrentUser() {
     User? user = _auth.currentUser;
     return user != null ? true : false;
+  }
+
+  bool checkCurrentUserAnonymous() {
+    return _auth.currentUser!.isAnonymous;
   }
 
 }

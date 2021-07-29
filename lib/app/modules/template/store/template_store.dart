@@ -27,8 +27,8 @@ abstract class _TemplateStore with Store{
 
 
   void navegacaoAutenticada(int numRota){
-    if(_acessoBD.checkCurrentUser()) _controllerApp.mudarRota(numRota);
-    else Modular.to.pushNamed("/login");
+    if(_acessoBD.checkCurrentUserAnonymous()) Modular.to.pushNamed("/login");
+    else _controllerApp.mudarRota(numRota);
   }
 
 
