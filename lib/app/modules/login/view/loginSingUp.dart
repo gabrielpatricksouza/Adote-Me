@@ -2,12 +2,10 @@ import 'package:adote_me/app/modules/login/store/register_store.dart';
 import 'package:adote_me/constants/constantes.dart';
 import 'package:adote_me/widgets/InputCustomizado.dart';
 import 'package:adote_me/widgets/custom_animated_button.dart';
-import 'package:adote_me/widgets/custom_circle_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SingUp extends StatelessWidget {
@@ -134,7 +132,7 @@ class SingUp extends StatelessWidget {
                                     ),
                                   ),
                                   controller: _controllerLogin.senha2Controller,
-                                  obscure: _controllerLogin.visualizar,
+                                  obscure: _controllerLogin.visualizar2,
                                   onChanged: _controllerLogin.setsenha2,
                                   keyboardType: TextInputType.visiblePassword,
                                 ),
@@ -169,66 +167,6 @@ class SingUp extends StatelessWidget {
                                         text: "Cadastrar",
                                       ),
                                     ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 30),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                        child: Divider(
-                                      height: 20,
-                                      color: Colors.black,
-                                    )),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: Text("OU"),
-                                    ),
-                                    Expanded(
-                                        child: Divider(
-                                      height: 20,
-                                      color: Colors.black,
-                                    )),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20, left: 20, right: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        _controllerLogin
-                                            .registerWithGoogle(context);
-                                        FocusScope.of(context).unfocus();
-                                      },
-                                      child: CustomCircleAvatar(
-                                        icon: FontAwesomeIcons.google,
-                                        color: Colors.redAccent,
-                                      ),
-                                    ),
-
-                                    GestureDetector(
-                                      onTap: () {
-                                        _controllerLogin
-                                            .registerWithFacebook(context);
-                                        FocusScope.of(context).unfocus();
-                                      },
-                                      child: CustomCircleAvatar(
-                                        icon: FontAwesomeIcons.facebookF,
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-
-                                    // CustomCircleAvatar(
-                                    //   icon: FontAwesomeIcons.twitter,
-                                    //   color: Colors.lightBlueAccent,
-                                    // ),
-                                  ],
-                                ),
-                              ),
                               SizedBox(height: 10),
                             ],
                           ),

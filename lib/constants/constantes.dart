@@ -1,3 +1,5 @@
+import 'package:adote_me/app/modules/denunciar/view/denunciar_page.dart';
+import 'package:adote_me/app/modules/pets/view/pets_page.dart';
 import 'package:flutter/material.dart';
 import 'package:adote_me/app/modules/doacao/view/doacao_page.dart';
 import 'package:adote_me/app/modules/favoritos/view/favoritos_page.dart';
@@ -15,17 +17,10 @@ List<Widget> pages = [
   HomePage(),
   DoacaoPage(),
   FavoritosPage(),
+  PetsPage(),
   ParceirosPage(),
+  DenunciarPage(),
   SobrePage(),
-];
-
-List<String> namePages = [
-  "Scaffold",
-  "Sobre",
-  "Explorar",
-  "Serviços",
-  "Portfólio",
-  "Contato"
 ];
 
 List<BoxShadow> shadowList = [
@@ -42,8 +37,8 @@ List<Map> screenItems=[
   },
 
   {
-    'icon': FontAwesomeIcons.dna,
-    'title' : 'Raça: ',
+    'icon': FontAwesomeIcons.locationArrow,
+    'title' : 'Local: ',
 
     'icon2': FontAwesomeIcons.rulerCombined,
     'title2' : 'Porte: ',

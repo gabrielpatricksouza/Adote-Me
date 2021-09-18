@@ -29,7 +29,6 @@ class _TemplateState extends ModularState<Template, TemplateStore> {
         child: Observer(
           builder: (_) =>  TemplateMenuDrawer(
             page: pages[appController.index],
-            namePages: namePages[appController.index],
             changeFunction: appController.mudarRota,
           ),
         ),

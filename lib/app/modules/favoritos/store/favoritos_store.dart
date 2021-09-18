@@ -35,14 +35,16 @@ abstract class _FavoritosStore with Store{
   @action
   desfavoritarPet(context, String idPet, String nomePet) async {
     carregando = true;
-    bool response = await _acessoFavoritosDB.deletarFirebase(idPet);
+    bool response = await _acessoFavoritosDB.deletarFavorito(idPet);
     carregando = false;
+    listaAnimaisFavoritados.clear();
+
     if(response == true){
       simpleCustomAlert(
           context,
           AlertType.success,
           "",
-          "$nomePet será retirado da sua lista de favoritos!"
+          "$nomePet foi retirado(a) da sua lista de favoritos!"
       );
 
     }else{
@@ -53,5 +55,7 @@ abstract class _FavoritosStore with Store{
           "Ocorreu algum erro! Tente novamente mais tarde"
       );
     }
+
+    buscarAnimais();
   }
 }

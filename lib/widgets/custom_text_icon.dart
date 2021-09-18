@@ -28,7 +28,7 @@ class CustomTextIcon extends StatelessWidget {
             highlightColor: Colors.transparent,
             hoverColor: Colors.transparent,
             iconSize: 27,
-            icon: Icon(icon),
+            icon: Icon(icon, color: Colors.transparent,),
             onPressed: action()
         ),
       ],

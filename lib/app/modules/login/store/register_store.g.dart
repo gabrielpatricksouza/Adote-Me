@@ -129,24 +129,6 @@ mixin _$RegisterStore on _RegisterStore, Store {
     });
   }
 
-  final _$registerWithGoogleAsyncAction =
-      AsyncAction('_RegisterStore.registerWithGoogle');
-
-  @override
-  Future<dynamic> registerWithGoogle(dynamic context) {
-    return _$registerWithGoogleAsyncAction
-        .run(() => super.registerWithGoogle(context));
-  }
-
-  final _$registerWithFacebookAsyncAction =
-      AsyncAction('_RegisterStore.registerWithFacebook');
-
-  @override
-  Future<dynamic> registerWithFacebook(dynamic context) {
-    return _$registerWithFacebookAsyncAction
-        .run(() => super.registerWithFacebook(context));
-  }
-
   final _$_cadastrarUsuarioAsyncAction =
       AsyncAction('_RegisterStore._cadastrarUsuario');
 

@@ -26,7 +26,6 @@ abstract class _HomeStore with Store{
   @action
   buscarAnimais() async {
     carregando = true;
-
     Animal animal = Animal();
     List<QueryDocumentSnapshot> lista = [];
 
@@ -55,6 +54,7 @@ abstract class _HomeStore with Store{
     if(filtro == 'castrado') _filtrarCastrado(valor);
     if(filtro == 'chipado') _filtrarChipado(valor);
     if(filtro == 'vermifudo') _filtrarVermifugado(valor);
+    if(filtro == 'limpar') _limparFiltro();
 
 
     listaAnimais.clear();
@@ -69,25 +69,28 @@ abstract class _HomeStore with Store{
           context,
           AlertType.info,
           "",
-          "Não foi inserido whatsapp de contato!"
+          "Não foi inserido whatsapp para contato!"
       );
 
     }else{
       final link = WhatsAppUnilink(
-        phoneNumber: numWpp,
+        phoneNumber: "+55 " + numWpp.replaceAll("-",  ""),
         text: appController.usuario.nome.isEmpty
             ? "Olá! Venho do app Adote-me, e adoraria adotar o(a) $nomePet"
             : "Olá! Meu nome é ${appController.usuario.nome}. "
               "Venho do app Adote-me, e adoraria adotar o(a) $nomePet",
       );
-      await launch('$link');
+      await launch('$link', forceWebView: false, forceSafariVC: false);
     }
   }
 
   favoritarPet(context, String idPet) async {
     carregando = true;
-    if(_acessoHomeDB.checkCurrentUserAnonymous()) Modular.to.pushNamed("/login");
-    else{
+    if(_acessoHomeDB.checkCurrentUser() == false) {
+      carregando = false;
+      Modular.to.pushNamed("/login");
+
+    } else{
       bool response = await _acessoHomeDB.favoritarFirebase(idPet);
       carregando = false;
       if(response == true){
@@ -105,6 +108,13 @@ abstract class _HomeStore with Store{
             "Este pet já foi favoritado!"
         );
       }
+    }
+  }
+  _limparFiltro(){
+    lista.clear();
+
+    for(var dados in listaAnimais){
+      lista.add(dados);
     }
   }
 

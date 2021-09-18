@@ -32,7 +32,7 @@ class FavoritosDB{
     return listaAnimais;
   }
 
-  Future deletarFirebase(String idPet) async {
+  Future deletarFavorito(String idPet) async {
     String userId = _auth.currentUser!.uid;
 
     DocumentSnapshot<Map<String, dynamic>> snapshot =

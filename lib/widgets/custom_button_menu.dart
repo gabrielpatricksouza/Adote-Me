@@ -55,7 +55,7 @@ class CustomButtonMenu extends StatelessWidget {
                 Icon(
                   icon,
                   color: seletedIndex == index ? primaryGreen : Colors.white,
-                  size: 30,
+                  size: 28,
                 ),
                 SizedBox(width: 15),
                 Text(

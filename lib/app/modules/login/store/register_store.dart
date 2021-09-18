@@ -1,7 +1,9 @@
 import 'package:adote_me/app/BO/BO_Cadastro.dart';
 import 'package:adote_me/app/Model/Usuario.dart';
+import 'package:adote_me/app/app_controller.dart';
 import 'package:adote_me/app/modules/login/services/db_login.dart';
 import 'package:adote_me/utility/simple_alert.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -11,6 +13,7 @@ class RegisterStore = _RegisterStore with _$RegisterStore;
 
 abstract class _RegisterStore with Store{
   ConexaoBD _acessoBD = ConexaoBD();
+  AppController appController = Modular.get();
 
   final nomeController   = TextEditingController();
   final emailController  = TextEditingController();
@@ -56,40 +59,6 @@ abstract class _RegisterStore with Store{
   @observable
   bool carregando = false;
 
-
-  @action
-  Future registerWithGoogle(context) async {
-    carregando = true;
-    // bool response = await _acessoBD.loginWithGoogle();
-    bool response = false;
-
-    if(response != true){
-      carregando = false;
-      simpleCustomAlert(context, AlertType.error, "ATENÇÃO",
-          "Não foi possível cadastrar usuário, tente novamente mais tarde!");
-    }
-    else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
-
-    carregando = false;
-  }
-
-  @action
-  Future registerWithFacebook(context) async {
-    carregando = true;
-    // bool response = await _acessoBD.loginWithFacebook();
-    bool response = false;
-
-    if(response != true){
-      carregando = false;
-      simpleCustomAlert(context, AlertType.error, "ATENÇÃO",
-          "Não foi possível cadastrar usuário, tente novamente mais tarde!");
-    }
-    else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
-
-    carregando = false;
-  }
-
-
   @action
   Future _cadastrarUsuario(context) async {
 
@@ -108,7 +77,10 @@ abstract class _RegisterStore with Store{
     if(_resultado != true){
       simpleCustomAlert(context, AlertType.error, "ATENÇÃO", _resultado);
     }
-    else Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+    else{
+      Modular.to.navigate("/");
+      await appController.recuperarDadosUser();
+    }
   }
 
   @observable

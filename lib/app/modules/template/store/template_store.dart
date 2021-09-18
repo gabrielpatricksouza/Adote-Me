@@ -10,24 +10,16 @@ abstract class _TemplateStore with Store{
   ConexaoBDTemplate _acessoBD = ConexaoBDTemplate();
   final AppController _controllerApp = Modular.get();
 
-  @observable
-  bool usuarioLogado = false;
-
-  @action
-  bool checkLoggedUser() =>
-      usuarioLogado = _acessoBD.checkCurrentUser();
 
   void deslogarUsuario() async {
-    bool response = await _acessoBD.deslogarUsuario();
-    if(response){
-      _controllerApp.limparVariaveis();
-      _controllerApp.mudarRota(0);
-    }
+     await _acessoBD.deslogarUsuario();
+    _controllerApp.limparVariaveis();
+    _controllerApp.mudarRota(0);
   }
 
 
   void navegacaoAutenticada(int numRota){
-    if(_acessoBD.checkCurrentUserAnonymous()) Modular.to.pushNamed("/login");
+    if(_acessoBD.checkCurrentUser() == false) Modular.to.pushNamed("/login");
     else _controllerApp.mudarRota(numRota);
   }
 

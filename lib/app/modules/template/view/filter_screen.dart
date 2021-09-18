@@ -78,7 +78,7 @@ class FilterScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.all(Radius.circular(28.0),)),
                             child: Container(
                                 height: 60,
-                                child: Center(child: Text("Roedor", style: TextStyle(fontSize: 25),))
+                                child: Center(child: Text("Gato", style: TextStyle(fontSize: 25),))
                             ),
                           ),
                         ),
@@ -96,7 +96,7 @@ class FilterScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.all(Radius.circular(28.0),)),
                             child: Container(
                                 height: 60,
-                                child: Center(child: Text("Gato", style: TextStyle(fontSize: 25),))
+                                child: Center(child: Text("Roedor", style: TextStyle(fontSize: 25),))
                             ),
                           ),
                         ),
@@ -133,6 +133,24 @@ class FilterScreen extends StatelessWidget {
                             child: Container(
                                 height: 60,
                                 child: Center(child: Text("Outro", style: TextStyle(fontSize: 25),))
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 15.0,),
+
+                        GestureDetector(
+                          onTap: (){
+                            homeStore.filtrarPets("limpar", "");
+                            Navigator.pop(context);
+                          },
+                          child: Card(
+                            color: Color(0xff319393), 
+                            shadowColor: Colors.grey,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(28.0),)),
+                            child: Container(
+                                height: 60,
+                                child: Center(child: Text("Limpar filtro", style: TextStyle(fontSize: 25),))
                             ),
                           ),
                         ),

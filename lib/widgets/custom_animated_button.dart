@@ -62,18 +62,15 @@ class _CustomAnimatedButtonState extends State<CustomAnimatedButton> with Single
     _scale = 1 - _controller.value;
 
     return Center(
-      child: InkWell(
-        onTap: (){},
-        child: GestureDetector(
-          onTapDown: _onTapDown,
-          onTapUp: _onTapUp,
-          onTap: (){
-            widget.onTap!();
-          },
-          child: Transform.scale(
-            scale: _scale,
-            child: _animatedButtonUI,
-          ),
+      child: GestureDetector(
+        onTapDown: _onTapDown,
+        onTapUp: _onTapUp,
+        onTap: (){
+          widget.onTap!();
+        },
+        child: Transform.scale(
+          scale: _scale,
+          child: _animatedButtonUI,
         ),
       ),
     );

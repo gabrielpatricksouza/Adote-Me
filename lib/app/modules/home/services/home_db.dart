@@ -56,7 +56,9 @@ class HomeDB{
 
   }
 
-  bool checkCurrentUserAnonymous() {
-    return _auth.currentUser!.isAnonymous;
+  bool checkCurrentUser() {
+    User? user = _auth.currentUser;
+    print(user!= null );
+    return user != null ? true: false;
   }
 }

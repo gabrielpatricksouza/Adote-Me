@@ -25,7 +25,7 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
     BuildContext contextGlobal = context;
 
     return Container(
-      color: Color(0xffd7ecec), //Color(0xff161621),
+      color: Color(0xffd7ecec),
       child: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (OverscrollIndicatorNotification overscroll) {
           overscroll.disallowGlow();

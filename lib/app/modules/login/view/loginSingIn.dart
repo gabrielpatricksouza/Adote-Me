@@ -3,12 +3,10 @@ import 'package:adote_me/constants/constantes.dart';
 import 'package:adote_me/utility/recuperar_senha_alert.dart';
 import 'package:adote_me/widgets/InputCustomizado.dart';
 import 'package:adote_me/widgets/custom_animated_button.dart';
-import 'package:adote_me/widgets/custom_circle_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SingIn extends StatelessWidget {
   final LoginStore _controllerLogin = Modular.get();
@@ -125,63 +123,6 @@ class SingIn extends StatelessWidget {
                             onTap: (){
                               recuperarSenha(context);
                             },
-                          ),
-                        ),
-
-                        Padding(
-                          padding: EdgeInsets.only(top: 20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  child: Divider(
-                                    height: 20,
-                                    color: Colors.black,
-                                  )
-                              ),
-
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: Text("OU", style: TextStyle(color: Colors.grey[700]),),
-                              ),
-
-                              Expanded(
-                                  child: Divider(
-                                    height: 20,
-                                    color: Colors.black,
-                                  )
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-
-                              GestureDetector(
-                                onTap: (){
-                                  _controllerLogin.singInWithGoogle(context);
-                                  FocusScope.of(context).unfocus();
-                                },
-                                child: CustomCircleAvatar(
-                                  icon: FontAwesomeIcons.google,
-                                  color: Colors.redAccent,
-                                ),
-                              ),
-
-                              GestureDetector(
-                                onTap: (){
-                                  _controllerLogin.singInWithFacebook(context);
-                                  FocusScope.of(context).unfocus();
-                                },
-                                child: CustomCircleAvatar(
-                                  icon: FontAwesomeIcons.facebookF,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ],
                           ),
                         ),
                         SizedBox(height: 10),
